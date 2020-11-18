@@ -2,7 +2,12 @@
 title: "Custom analyses clinical mAbs"
 author: "Tyler Starr"
 date: "11/17/2020"
-output: html_document
+output:
+  github_document:
+    toc: true
+    html_preview: false
+editor_options: 
+  chunk_output_type: inline
 ---
 
 This notebook does some random analyses on the clinical antibodies set that vary from the more constrained global pipeline.
@@ -29,7 +34,7 @@ config <- read_yaml("config.yaml")
 profiles_config <- read_yaml(file=config$escape_profiles_config)
 
 #make output directory
-output_dir <- "results/clinical_mAbs_custom"
+output_dir <- config$custom_plots_dir
 if(!file.exists(output_dir)){
   dir.create(file.path(output_dir))
 }
@@ -228,17 +233,17 @@ invisible(dev.print(pdf, paste(output_dir,"/escape_by_contact_type.pdf",sep=""))
 ```
 Table with number of sites in each structural category, and number of sites of "strong" escape
 
-```{r table, strong_sites_by_structure}
+```{r table_strong_sites_by_structure}
 temp <- unique(temp[,.(antibody,protein_site,site_total_escape,contact,cutoff)])
 
 dt <- data.frame(antibody=c("REGN10933","REGN10987","LY-CoV016"),n_contact=NA,n_contact_escape=NA,n_proximal=NA,n_proximal_escape=NA,n_distal=NA,n_distal_escape=NA)
 for(i in 1:nrow(dt)){
-  dt$n_contact[i] <- nrow(temp[antibody==dt[i,"antibody"] & contact=="contact",])
-  dt$n_contact_escape[i] <- nrow(temp[antibody==dt[i,"antibody"] & contact=="contact" & site_total_escape>cutoff,])
-  dt$n_proximal[i] <- nrow(temp[antibody==dt[i,"antibody"] & contact=="proximal",])
-  dt$n_proximal_escape[i] <- nrow(temp[antibody==dt[i,"antibody"] & contact=="proximal" & site_total_escape>cutoff,])
-  dt$n_distal[i] <- nrow(temp[antibody==dt[i,"antibody"] & contact=="distal",])
-  dt$n_distal_escape[i] <- nrow(temp[antibody==dt[i,"antibody"] & contact=="distal" & site_total_escape>cutoff,])
+  dt$n_contact[i] <- nrow(temp[as.character(antibody)==dt[i,"antibody"] & contact=="contact",])
+  dt$n_contact_escape[i] <- nrow(temp[as.character(antibody)==dt[i,"antibody"] & contact=="contact" & site_total_escape>cutoff,])
+  dt$n_proximal[i] <- nrow(temp[as.character(antibody)==dt[i,"antibody"] & contact=="proximal",])
+  dt$n_proximal_escape[i] <- nrow(temp[as.character(antibody)==dt[i,"antibody"] & contact=="proximal" & site_total_escape>cutoff,])
+  dt$n_distal[i] <- nrow(temp[as.character(antibody)==dt[i,"antibody"] & contact=="distal",])
+  dt$n_distal_escape[i] <- nrow(temp[as.character(antibody)==dt[i,"antibody"] & contact=="distal" & site_total_escape>cutoff,])
 }
 kable(dt)
 ```

@@ -87,6 +87,7 @@ rule make_summary:
         escape_selections=nb_markdown('escape_selections.ipynb'),
         make_supp_data=nb_markdown('make_supp_data.ipynb'),
         structural_contacts='results/summary/annotate_structural_contacts.md',
+        custom_plots='results/summary/clinical_custom_plots.md',
     output:
         summary = os.path.join(config['summary_dir'], 'summary.md')
     run:
@@ -149,6 +150,8 @@ rule make_summary:
                 which are [here]({path(config['supp_data_dir'])}). These include
                 `dms-view` input files.
 
+            17. Make custom plots for this project that fall out of the core pipeline, summarzied in [this notebook]({path(input.custom_plots)})
+
             """
             ).strip())
 
@@ -160,6 +163,26 @@ rule make_rulegraph:
         os.path.join(config['summary_dir'], 'rulegraph.svg')
     shell:
         "snakemake --forceall --rulegraph | dot -Tsvg > {output}"
+
+rule custom_plots:
+    input:
+        config['escape_fracs'],
+        config['gisaid_mutation_counts']
+    output:
+        md='results/summary/clinical_custom_plots.md',
+        md_files=directory('results/summary/clinical_custom_plots_files')
+    envmodules:
+        'R/3.6.2-foss-2019b'
+    params:
+        nb='clinical_custom_plots.Rmd',
+        md='clinical_custom_plots.md',
+        md_files='clinical_custom_plots_files'
+    shell:
+        """
+        R -e \"rmarkdown::render(input=\'{params.nb}\')\";
+        mv {params.md} {output.md};
+        mv {params.md_files} {output.md_files}
+        """
 
 rule structural_contacts:
     input:
