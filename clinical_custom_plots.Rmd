@@ -1,0 +1,185 @@
+---
+title: "Custom analyses clinical mAbs"
+author: "Tyler Starr"
+date: "10/15/2020"
+output: html_document
+---
+
+This notebook does some random analyses on the clinical antibodies set that vary from the more constrained global pipeline.
+
+```{r setup, message=FALSE, warning=FALSE, error=FALSE}
+require("knitr")
+knitr::opts_chunk$set(echo = T)
+knitr::opts_chunk$set(dev.args = list(png = list(type = "cairo")))
+
+#list of packages to install/load
+packages = c("yaml","data.table","tidyverse","ggrepel")
+#install any packages not already installed
+installed_packages <- packages %in% rownames(installed.packages())
+if(any(installed_packages == F)){
+  install.packages(packages[!installed_packages])
+}
+#load packages
+invisible(lapply(packages, library, character.only=T))
+
+#read in config file
+config <- read_yaml("config.yaml")
+
+#read in escape profiles file
+profiles_config <- read_yaml(file=config$escape_profiles_config)
+
+#make output directory
+output_dir <- "results/clinical_mAbs_custom"
+if(!file.exists(output_dir)){
+  dir.create(file.path(output_dir))
+}
+```
+Session info for reproducing environment:
+```{r print_sessionInfo}
+sessionInfo()
+```
+
+## Part 1: Manual identification of additional sites of escape for logoplot displays
+
+Current config sets "sites of strong escape" cutoffs that remove display of escape sites where just one or two mutations confer escape, even if there is a sensible underlying mechanism by which just the single amino acid change can confer the escape. We can manually add sites to profiles, but want to have a methodological basis for what's added back in.
+
+Here, we add a second filter for identifying strong sites for logoplot displays, based on the max effect of a mutation at a site. If a site has a mutation with escape at least 50% the effect of the strongest escape site, we include it.
+
+```{r secondary_max_cutoff}
+scores <- data.table(read.csv(file=config$escape_fracs,stringsAsFactors=F))
+
+scores <- scores[selection %in% names(profiles_config$clinical_antibodies$conditions) & library=="average", .(selection,condition,site,protein_site,wildtype,mutation,mut_escape_frac_epistasis_model,site_total_escape_frac_epistasis_model)]
+
+setnames(scores,"mut_escape_frac_epistasis_model","mut_escape_frac");setnames(scores,"site_total_escape_frac_epistasis_model","site_total_escape")
+
+scores[,antibody:=as.character(profiles_config$clinical_antibodies$conditions[condition])]
+
+scores <- scores[,.(antibody,site,protein_site,wildtype,mutation,mut_escape_frac,site_total_escape)]
+
+scores[,site_max_escape:=max(mut_escape_frac,na.rm=T),by=c("antibody","site")]
+
+#add column indicating if max escape is at least 50% the max max-escape
+scores[,sig_max_escape:=F]
+scores[site_max_escape>0.5*max(scores[antibody==antibody,site_max_escape]),sig_max_escape:=T]
+
+strong_sites_max <- unique(scores[sig_max_escape==T,.(antibody,protein_site)])
+
+#compare to the strong sites called from the total escape metric
+strong_sites_total <- data.table(read.csv(file=config$strong_escape_sites,stringsAsFactors = F))[condition %in% names(profiles_config$clinical_antibodies$conditions) ,.(condition,site)]
+
+strong_sites_total[,antibody:=as.character(profiles_config$clinical_antibodies$conditions[condition])]
+
+strong_sites_total <- strong_sites_total[,.(antibody,site)]
+
+strong_sites_max[,new:=T]
+strong_sites_max[protein_site %in% strong_sites_total[antibody==antibody,site],new:=F]
+
+#output all new sites to be manually added to this profile's plots
+kable(strong_sites_max[new==T & !(protein_site %in% strong_sites_total$site),.(antibody,protein_site)])
+
+#add indicator column to scores df for strong sites by total escape cutoff metric, in addition to existing max escape flag
+scores[,sig_tot_escape:=F]
+for(i in 1:nrow(strong_sites_total)){
+  scores[antibody==strong_sites_total[i,antibody] & protein_site==strong_sites_total[i,site],sig_tot_escape:=T]
+}
+
+
+```
+
+## Part 2: Circulating variants at the per-mut level: compare structural and functional epitopes
+
+Current notebook on circulating mutations considers all mutations at a site together, regardless of the escape conferred by the particular mutation that is circulating. With the clinical mAbs, in addition to the sitewise diversity (e.g. as an indicator of what sites can accomodate diversity), we might be interested in the specific mutations themselves that are circulating, as that could have a direct effect on antibody therapies. Furthermore, we want to collate circulating variants at structural contact positions for antibodies, to see if there is any interesting difference in circulating variants at contact positions that do *not* facilitate escape from the antibody.
+
+First, read in table reporting circulating variants. We will add new columns to our master data frame indicating the nobs and frequency on GISAID, and the number of countries in which a mutant has been observed. We also read in a file that indicates which RBD residues are structural contacts of each antibody, and annotate each column whether it is in structural contact with the antibody.
+
+```{r circulating_variants}
+#read in table giving structural contact sites for each antibody
+contacts <- read.csv(config$structural_contacts,stringsAsFactors=F)
+#add indicator if a site is a contact position for the corresponding antibody
+scores[,contact:=as.character("F")]
+for(i in 1:nrow(contacts)){
+  scores[antibody==contacts[i,"name"] & protein_site==contacts[i,"position"],contact:=as.character("T")]
+}
+
+scores[antibody %in% c("COV2-2196","COV2-2130","COV2-2196+COV2-2130"),contact:=as.character("NA")]
+
+#read in table giving mutant frequencies on GISAID
+counts <- read.csv(config$gisaid_mutation_counts,stringsAsFactors=F)
+#add to scores table
+scores[,count:=0];scores[,n_countries:=0];scores[,frequency:=0]
+for(i in 1:nrow(counts)){
+  scores[protein_site==counts[i,"site"] & mutation==counts[i,"mutant"],count:=counts[i,"count"]]
+  scores[protein_site==counts[i,"site"] & mutation==counts[i,"mutant"],n_countries:=counts[i,"n_countries"]]
+  scores[protein_site==counts[i,"site"] & mutation==counts[i,"mutant"],frequency:=counts[i,"frequency"]]
+}
+
+#make factor for antibody name labels, in desired order
+scores$antibody <- factor(scores$antibody,levels=c("CB6","REGN10933","COV2-2196","S309","REGN10987","COV2-2130","REGN10933+REGN10987","COV2-2196+COV2-2130"))
+#make factor for contacts labels, in desired order
+scores$contact <- factor(scores$contact, levels=c("T","F","NA"))
+
+```
+
+First, for each antibody, plot per-mutation escape fraction versus frequency (log10), with a 'pseudo-frequency' of 0.1x the lowest actualf requency, to enable log10 plotting)
+
+```{r mutation_escape_v_freq_mAb, echo=T, fig.width=8, fig.height=6, fig.align="center", dpi=300,dev="png"}
+scores[,pseudo_frequency:=frequency]
+scores[frequency==0,pseudo_frequency:=0.1*min(scores[frequency>0,frequency])]
+
+p1 <- ggplot(scores[antibody %in% c("S309","CB6","REGN10933","REGN10987","COV2-2130","COV2-2196"),])+aes(x=pseudo_frequency,y=mut_escape_frac)+
+  geom_point(alpha=0.5)+
+  facet_wrap(~antibody,nrow=2)+
+  scale_x_continuous(trans="log10")+
+  scale_y_continuous(limits=c(0,1.05))+
+  theme_classic()+
+  xlab('mutant frequency on GISAID (log10 scale)')+
+  ylab('mutant escape fraction')+
+  geom_text_repel(aes(label=ifelse(mut_escape_frac>0.25 & frequency>1e-6,as.character(paste(wildtype,protein_site,mutation,sep="")),'')),size=3)
+p1
+
+invisible(dev.print(pdf, paste(output_dir,"/circ-mut-scatter_mAbs.pdf",sep="")))
+
+```
+
+Make an alternate version of this plot where we annotate by yes/no structural contact, and also label circulating mutations at contact residues that do not escape.
+
+```{r mutation_escape_v_freq_mAb_contacts, echo=T, fig.width=9, fig.height=6, fig.align="center", dpi=300,dev="png"}
+temp <- scores[order(contact,decreasing=T),]
+
+p1 <- ggplot(temp[antibody %in% c("S309","CB6","REGN10933","REGN10987","COV2-2130","COV2-2196")])+aes(x=pseudo_frequency,y=mut_escape_frac,color=contact)+
+  geom_point(alpha=0.5)+
+  facet_wrap(~antibody,nrow=2)+
+  scale_x_continuous(trans="log10")+
+  scale_y_continuous(limits=c(-0.05,1.05))+
+  theme_classic()+
+  xlab('mutant frequency on GISAID (log10 scale)')+
+  ylab('mutant escape fraction')+
+  scale_color_manual(values=c("#0072B2","#E69F00","#56B4E9"))+
+  geom_text_repel(aes(label=ifelse(mut_escape_frac>0.25 & frequency>1e-6,as.character(paste(wildtype,protein_site,mutation,sep="")),'')),size=2.5)+
+  geom_text_repel(aes(label=ifelse(contact=="T" & mut_escape_frac<0.25 & frequency>1e-5,as.character(paste(wildtype,protein_site,mutation,sep="")),'')),size=2.5)
+p1
+
+invisible(dev.print(pdf, paste(output_dir,"/circ-mut-scatter_indicate-contact_mAbs.pdf",sep="")))
+
+```
+
+Make similar plots, for the cocktail combinations.
+
+```{r mutation_escape_v_freq_cocktail, echo=T, fig.width=6, fig.height=3.25, fig.align="center", dpi=300,dev="png"}
+p1 <- ggplot(scores[antibody %in% c("REGN10933+REGN10987","COV2-2196+COV2-2130")])+aes(x=pseudo_frequency,y=mut_escape_frac)+
+  geom_point(alpha=0.75)+
+  facet_wrap(~antibody,nrow=1)+
+  theme_classic()+
+  scale_x_continuous(trans="log10")+
+  scale_y_continuous(limits=c(0,1.05))+
+  xlab('mutant frequency on GISAID (log10 scale)')+
+  ylab('mutant escape fraction')+
+  geom_text_repel(aes(label=ifelse(mut_escape_frac>0.25 & frequency>1e-6,as.character(paste(wildtype,protein_site,mutation,sep="")),'')),size=2.5)
+p1
+
+invisible(dev.print(pdf, paste(output_dir,"/circ-mut-scatter_mAb-cocktails.pdf",sep="")))
+
+```
+
+
+

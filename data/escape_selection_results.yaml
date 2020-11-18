@@ -1,0 +1,112 @@
+# Results of escape mutant selections.
+
+# Baum_selections
+Baum_selections:
+  spike_sequence: ./data/Baum_Spike.gb
+  min_size: 0.75  # smallest point size (e.g., unobserved mutations)
+  max_size: 1  # point size proportional to n observations with this max
+  size_scale: 0.25  # scale all point sizes by this much
+  antibodies:
+    REGN10933_400:  # total of 8 mutants selected
+      display_name: REGN10933
+      mutations:
+        K417E: 1
+        Y453F: 1
+        L455F: 1
+        F486V: 1
+        Q493K: 1
+      label_mutations:
+        - K417E
+        - Y453F
+        - L455F
+        - F486V
+        - Q493K
+    REGN10987_400:
+      display_name: REGN10987
+      mutations:
+        K444Q: 1
+        V445A: 1
+      label_mutations:
+        - K444Q
+        - V445A
+
+# Li in vivo
+Li_in_vivo:
+  spike_sequence: ./data/Baum_Spike.gb
+  min_size: 0.75  # smallest point size (e.g., unobserved mutations)
+  max_size: 1  # point size proportional to n observations with this max
+  size_scale: 0.25  # scale all point sizes by this much
+  antibodies:
+    REGN10933_400:
+      display_name: REGN10933
+      mutations:
+        F486I: 1
+        Q493K: 1
+        Y489H: 1
+      label_mutations:
+        - F486I
+        - Q493K
+        - Y489H
+    REGN10987_400:
+      display_name: REGN10987
+      mutations:
+        N440D: 1
+      label_mutations:
+        - N440D
+        
+Baum_and_Li_in_vivo:
+  spike_sequence: ./data/Baum_Spike.gb
+  min_size: 0.75  # smallest point size (e.g., unobserved mutations)
+  max_size: 1  # point size proportional to n observations with this max
+  size_scale: 0.25  # scale all point sizes by this much
+  shapes: ['o', 'x', '^', 'v', 'D']
+  colors: ['tab:gray', 'tan', 'tab:red', 'tab:blue', 'tab:purple']
+  alphas: [0.4, 0.4, 0.75, 0.75, 0.75]
+  antibodies:
+    REGN10933_400:  # total of 8 mutants selected
+      display_name: REGN10933
+      mutations:
+        K417E: 1
+        Y453F: 1
+        L455F: 1
+        F486V: 1
+        Q493K: 1
+        Y489H: 1
+        F486I: 1
+      label_mutations:
+        - K417E
+        - Y453F
+        - L455F
+        - F486V
+        - Q493K
+        - Y489H
+        - F486I
+    REGN10987_400:
+      display_name: REGN10987
+      mutations:
+        K444Q: 1
+        V445A: 1
+        N440D: 1
+      label_mutations:
+        - K444Q
+        - V445A
+        - N440D
+    REGN10933+REGN10987_400:
+      display_name: REGN10933 + REGN10987
+      label_mutations:
+        - E406W
+        - Q493F
+  custom_categories:
+    REGN10933:
+      K417E: cell-culture escape
+      Y453F: cell-culture escape
+      L455F: cell-culture escape
+      F486V: cell-culture escape
+      Y489H: chronic-patient escape
+      F486I: chronic-patient escape
+      Q493K: cell-culture & chronic-patient escape
+    REGN10987:
+      K444Q: cell-culture escape
+      V445A: cell-culture escape
+      N440D: chronic-patient escape
+  legend_position: 'right'

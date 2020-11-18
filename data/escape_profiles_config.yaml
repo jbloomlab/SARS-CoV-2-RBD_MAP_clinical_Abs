@@ -1,0 +1,137 @@
+# Specify configuration of escape profile and related plots.
+#
+# Each entry should be a key with the name of the plot. It then can
+# have the following nested keys:
+#   conditions -> specify antibodies / sera and names to use when plotting
+#   plot_auto_identified_sites -> provide name of one of the thresholds for
+#                                 identifying sites of strong escape, or false
+#                                 to not plot auto-identified strong sites.
+#   add_sites -> list of any additional sites to plot
+#   exclude_sites -> list of any sites to exclude from plot
+#   site_color_scheme -> site-level color scheme in `site_color_schemes.csv`
+#                        **or** color for all sites
+#   mutation_colors -> dict keyed by mutation (e.g., P484) with value being color
+#   color_by_dms -> make copies of escape profiles colored by DMS bind / expr
+#   make_supp_data -> make supplemental data / dms-view file
+#   single_nt_only -> only include single-nt mutations relative to Genbank file
+#                     specified here in escape profiles.
+#   draw_line_plot -> set to false to not show line plot in escape profile
+#   analyze_natural_mutations -> analyze naturally occuring mutations at sites
+#                                of strong escape.
+#   natural_mutations_mincounts -> plot escape grid for all sites of strong
+#                                  escape with >= this many mutation counts.
+#   escape_profile_ymax -> override default for this parameter specified
+#                          in main `config.yaml`.
+#   shade_sites -> shade the stacks for certain sites. Key by the antibody name
+#                  (using the short names defined as values in `conditions`),
+#                  and then the values are maps of site to the list [color, alpha]
+
+REGN_and_LY-CoV016:
+  conditions:
+    REGN10933_400: REGN10933
+    REGN10987_400: REGN10987
+    REGN10933+REGN10987_400: REGN10933 + REGN10987
+    CB6_400: LY-CoV016
+  plot_auto_identified_sites: sensitive
+  add_sites: []
+  exclude_sites: []
+  site_color_scheme: tab:gray
+  make_supp_data: true
+  analyze_natural_mutations: true
+
+REGN_cocktail:
+  conditions:
+    REGN10933_400: REGN10933
+    REGN10987_400: REGN10987
+    REGN10933+REGN10987_400: REGN10933 + REGN10987
+  plot_auto_identified_sites: sensitive
+  add_sites: []
+  exclude_sites: []
+  site_color_scheme: tab:gray
+  color_by_dms: true
+  dmslogo_facet_plot_kwargs:
+    height_per_ax: 2.83
+  
+LY-CoV016:
+  conditions:
+    CB6_400: LY-CoV016
+  plot_auto_identified_sites: sensitive
+  add_sites: []
+  exclude_sites: []
+  site_color_scheme: tab:gray
+  color_by_dms: true
+  
+REGN_Baum_single_nt:
+  conditions:
+    REGN10933_400: REGN10933
+    REGN10987_400: REGN10987
+  plot_auto_identified_sites: sensitive
+  add_sites: []
+  exclude_sites: []
+  site_color_scheme: tab:gray
+  color_by_dms: true
+  single_nt_only: ./data/Baum_Spike.gb
+  draw_line_plot: false
+  dmslogo_facet_plot_kwargs:
+    height_per_ax: 2.75
+
+REGN_Baum_single_nt_color_escape:
+  conditions:
+    REGN10933_400: REGN10933
+    REGN10987_400: REGN10987
+  plot_auto_identified_sites: sensitive
+  add_sites: []
+  exclude_sites: []
+  site_color_scheme: tab:gray
+  mutation_colors:
+    E417: tab:red
+    F453: tab:red
+    F455: tab:red
+    V486: tab:red
+    K493: tab:red
+    Q444: tab:red
+    A445: tab:red
+  single_nt_only: ./data/Baum_Spike.gb
+  draw_line_plot: false
+  
+REGN_Li_in_vivo_single_nt_color_escape:
+  conditions:
+    REGN10933_400: REGN10933
+    REGN10987_400: REGN10987
+  plot_auto_identified_sites: sensitive
+  add_sites: []
+  exclude_sites: []
+  site_color_scheme: tab:gray
+  mutation_colors:
+    D440: tab:red
+    A484: tab:red
+    I486: tab:red
+    H489: tab:red
+    K493: tab:red
+  single_nt_only: ./data/Baum_Spike.gb
+  draw_line_plot: false
+  
+REGN_Baum_and_Li_single_nt_color_escape:
+  conditions:
+    REGN10933_400: REGN10933
+    REGN10987_400: REGN10987
+  plot_auto_identified_sites: sensitive
+  add_sites: []
+  exclude_sites: []
+  site_color_scheme: tab:gray
+  mutation_colors:
+    E417: tab:red
+    D440: tab:blue
+    Q444: tab:red
+    A445: tab:red
+    F453: tab:red
+    F455: tab:red
+    A484: tab:blue
+    I486: tab:blue
+    V486: tab:red
+    H489: tab:blue
+    K493: tab:purple
+  single_nt_only: ./data/Baum_Spike.gb
+  draw_line_plot: false
+  dmslogo_facet_plot_kwargs:
+    height_per_ax: 2.75

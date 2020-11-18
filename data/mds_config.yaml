@@ -1,0 +1,27 @@
+# Specify configuration of multi-dimensional scaling plots
+#
+# Each entry should be a key with the name of the plot. It then can
+# have the following nested keys:
+#   conditions -> antibodies / sera and names to use when plotting
+#   color_scheme -> color points on mds plot by this site-level color
+#                   scheme in `site_color_schemes` or color for all points.
+#   plot_size -> size of plot if you want to change from default; it's a
+#                square this many inches per side)
+#   random_state -> multidimensional scaling is stochastic, so runs with
+#                   different random number seeds will give slightly different
+#                   layouts. Try different seeds here if you want to tweak
+#                   appearance from default.
+#   pie_size -> size of the "pies" representing the antibodies / sera,
+#               bigger means larger. 
+#   pie_alpha -> transparency of the pies, smaller means more transparent.
+#   expand_points -> how much to repel text labels from points in plot;
+#                    larger values push text further from points, see
+#                    argument of same name here
+#                    https://adjusttext.readthedocs.io/en/latest/
+#   default_circle_color -> default color for circles around pies; use
+#                           'none' for no circle.
+#   circle_colors -> to color circles around pies for specific conditions,
+#                    give condition name followed by color.
+#   default_label_color -> like `default_circle_color` but for text labels.
+#   label_colors -> like `circl_colors` but for text labels.
+
