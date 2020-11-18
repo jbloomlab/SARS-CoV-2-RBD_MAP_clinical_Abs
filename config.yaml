@@ -166,3 +166,4 @@ structural_contacts_dir: results/structural_contacts
 structural_contacts: results/structural_contacts/structural_contacts.csv
 antibody_contacts: results/structural_contacts/antibody_contacts.csv
 escape_selections_dir: results/escape_selections
+custom_plots_dir: results/clinical_mAbs_custom

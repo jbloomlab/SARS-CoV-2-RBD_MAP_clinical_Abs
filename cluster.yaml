@@ -31,3 +31,9 @@ structural_contacts:
   time: 0-1
   mem: 50000
   constraint: gizmok
+  
+custom_plots:
+  cpus: 4
+  time: 0-1
+  mem: 50000
+  constraint: gizmok
