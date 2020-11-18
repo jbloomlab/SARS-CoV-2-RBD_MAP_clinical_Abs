@@ -64,7 +64,7 @@ scores[,site_max_escape:=max(mut_escape_frac,na.rm=T),by=c("antibody","site")]
 
 ```
 
-## Part 1: Circulating variants at the per-mut level: compare structural and functional epitopes
+## Part 1: Circulating variants at the per-mut level
 
 Current notebook on circulating mutations considers all mutations at a site together, regardless of the escape conferred by the particular mutation that is circulating. With the clinical mAbs, in addition to the sitewise diversity (e.g. as an indicator of what sites can accommodate diversity), we might be interested in the specific mutations themselves that are circulating, as that could have a direct effect on antibody therapies. Furthermore, we want to collate circulating variants at structural contact positions for antibodies, to see if there is any interesting difference in circulating variants at contact positions that do *not* facilitate escape from the antibody.
 
@@ -108,7 +108,7 @@ Want to know whether any sequences in the alignment of RBD sequences from GISAID
 
 ```{r identify_double_muts, echo=T, fig.width=4, fig.height=4, fig.align="center", dpi=300,dev="png"}
 #read in RBD alignment
-alignment <- bio3d::read.fasta(file="results/GISAID_mutations/RBD_alignment.fasta", rm.dup=T)
+alignment <- bio3d::read.fasta(file="results/GISAID_mutations/RBD_alignment.fasta", rm.dup=F)
 
 #read in 'reference' sequence
 reference <- bio3d::read.fasta(file="results/GISAID_mutations/reference_RBD.fasta")
