@@ -124,8 +124,8 @@ escape_fracs
       <td>331</td>
       <td>N</td>
       <td>A</td>
-      <td>0.001044</td>
-      <td>0.03952</td>
+      <td>0.001093</td>
+      <td>0.04032</td>
     </tr>
     <tr>
       <th>1</th>
@@ -133,8 +133,8 @@ escape_fracs
       <td>331</td>
       <td>N</td>
       <td>D</td>
-      <td>0.002087</td>
-      <td>0.03952</td>
+      <td>0.002187</td>
+      <td>0.04032</td>
     </tr>
     <tr>
       <th>2</th>
@@ -142,8 +142,8 @@ escape_fracs
       <td>331</td>
       <td>N</td>
       <td>E</td>
-      <td>0.001044</td>
-      <td>0.03952</td>
+      <td>0.001093</td>
+      <td>0.04032</td>
     </tr>
     <tr>
       <th>3</th>
@@ -151,8 +151,8 @@ escape_fracs
       <td>331</td>
       <td>N</td>
       <td>F</td>
-      <td>0.001044</td>
-      <td>0.03952</td>
+      <td>0.001093</td>
+      <td>0.04032</td>
     </tr>
     <tr>
       <th>4</th>
@@ -160,8 +160,8 @@ escape_fracs
       <td>331</td>
       <td>N</td>
       <td>G</td>
-      <td>0.005013</td>
-      <td>0.03952</td>
+      <td>0.005493</td>
+      <td>0.04032</td>
     </tr>
     <tr>
       <th>...</th>
@@ -178,8 +178,8 @@ escape_fracs
       <td>531</td>
       <td>T</td>
       <td>R</td>
-      <td>0.002305</td>
-      <td>0.04055</td>
+      <td>0.002079</td>
+      <td>0.03943</td>
     </tr>
     <tr>
       <th>7788</th>
@@ -187,8 +187,8 @@ escape_fracs
       <td>531</td>
       <td>T</td>
       <td>S</td>
-      <td>0.002368</td>
-      <td>0.04055</td>
+      <td>0.002079</td>
+      <td>0.03943</td>
     </tr>
     <tr>
       <th>7789</th>
@@ -196,8 +196,8 @@ escape_fracs
       <td>531</td>
       <td>T</td>
       <td>V</td>
-      <td>0.002198</td>
-      <td>0.04055</td>
+      <td>0.002076</td>
+      <td>0.03943</td>
     </tr>
     <tr>
       <th>7790</th>
@@ -205,8 +205,8 @@ escape_fracs
       <td>531</td>
       <td>T</td>
       <td>W</td>
-      <td>0.001965</td>
-      <td>0.04055</td>
+      <td>0.002072</td>
+      <td>0.03943</td>
     </tr>
     <tr>
       <th>7791</th>
@@ -214,8 +214,8 @@ escape_fracs
       <td>531</td>
       <td>T</td>
       <td>Y</td>
-      <td>0.002373</td>
-      <td>0.04055</td>
+      <td>0.002079</td>
+      <td>0.03943</td>
     </tr>
   </tbody>
 </table>
@@ -282,7 +282,7 @@ display(HTML(sitecounts_strong_sites.head(n=20).to_html(index=False)))
       <td>default</td>
       <td>439</td>
       <td>N</td>
-      <td>2.1500</td>
+      <td>2.2040</td>
       <td>2242</td>
       <td>N439K (2242)</td>
     </tr>
@@ -291,16 +291,16 @@ display(HTML(sitecounts_strong_sites.head(n=20).to_html(index=False)))
       <td>sensitive</td>
       <td>439</td>
       <td>N</td>
-      <td>2.1500</td>
+      <td>2.2040</td>
       <td>2242</td>
       <td>N439K (2242)</td>
     </tr>
     <tr>
-      <td>REGN10933+REGN10987_400</td>
+      <td>REGN10933_400</td>
       <td>sensitive</td>
       <td>453</td>
       <td>Y</td>
-      <td>0.1267</td>
+      <td>4.0980</td>
       <td>330</td>
       <td>Y453F (330)</td>
     </tr>
@@ -309,16 +309,7 @@ display(HTML(sitecounts_strong_sites.head(n=20).to_html(index=False)))
       <td>default</td>
       <td>453</td>
       <td>Y</td>
-      <td>4.1070</td>
-      <td>330</td>
-      <td>Y453F (330)</td>
-    </tr>
-    <tr>
-      <td>REGN10933_400</td>
-      <td>sensitive</td>
-      <td>453</td>
-      <td>Y</td>
-      <td>4.1070</td>
+      <td>4.0980</td>
       <td>330</td>
       <td>Y453F (330)</td>
     </tr>
@@ -327,34 +318,52 @@ display(HTML(sitecounts_strong_sites.head(n=20).to_html(index=False)))
       <td>sensitive</td>
       <td>501</td>
       <td>N</td>
-      <td>1.4430</td>
+      <td>1.4950</td>
       <td>225</td>
       <td>N501Y (210), N501T (10), N501S (5)</td>
     </tr>
     <tr>
       <td>REGN10933_400</td>
-      <td>default</td>
+      <td>sensitive</td>
       <td>484</td>
       <td>E</td>
-      <td>2.9970</td>
+      <td>3.0380</td>
       <td>66</td>
       <td>E484Q (29), E484K (27), E484A (6), E484D (3), E484R (1)</td>
     </tr>
     <tr>
       <td>REGN10933_400</td>
+      <td>default</td>
+      <td>484</td>
+      <td>E</td>
+      <td>3.0380</td>
+      <td>66</td>
+      <td>E484Q (29), E484K (27), E484A (6), E484D (3), E484R (1)</td>
+    </tr>
+    <tr>
+      <td>CB6_400</td>
       <td>sensitive</td>
       <td>484</td>
       <td>E</td>
-      <td>2.9970</td>
+      <td>0.9369</td>
       <td>66</td>
       <td>E484Q (29), E484K (27), E484A (6), E484D (3), E484R (1)</td>
+    </tr>
+    <tr>
+      <td>REGN10987_400</td>
+      <td>sensitive</td>
+      <td>446</td>
+      <td>G</td>
+      <td>17.1200</td>
+      <td>38</td>
+      <td>G446V (29), G446S (7), G446A (2)</td>
     </tr>
     <tr>
       <td>REGN10933+REGN10987_400</td>
       <td>sensitive</td>
       <td>446</td>
       <td>G</td>
-      <td>0.1180</td>
+      <td>0.1137</td>
       <td>38</td>
       <td>G446V (29), G446S (7), G446A (2)</td>
     </tr>
@@ -363,34 +372,25 @@ display(HTML(sitecounts_strong_sites.head(n=20).to_html(index=False)))
       <td>default</td>
       <td>446</td>
       <td>G</td>
-      <td>17.0600</td>
+      <td>17.1200</td>
       <td>38</td>
       <td>G446V (29), G446S (7), G446A (2)</td>
     </tr>
     <tr>
       <td>REGN10987_400</td>
       <td>sensitive</td>
-      <td>446</td>
-      <td>G</td>
-      <td>17.0600</td>
-      <td>38</td>
-      <td>G446V (29), G446S (7), G446A (2)</td>
-    </tr>
-    <tr>
-      <td>REGN10987_400</td>
-      <td>default</td>
       <td>440</td>
       <td>N</td>
-      <td>6.5280</td>
+      <td>6.6100</td>
       <td>35</td>
       <td>N440K (29), N440Y (3), N440T (1), N440S (1), N440D (1)</td>
     </tr>
     <tr>
       <td>REGN10987_400</td>
-      <td>sensitive</td>
+      <td>default</td>
       <td>440</td>
       <td>N</td>
-      <td>6.5280</td>
+      <td>6.6100</td>
       <td>35</td>
       <td>N440K (29), N440Y (3), N440T (1), N440S (1), N440D (1)</td>
     </tr>
@@ -399,7 +399,7 @@ display(HTML(sitecounts_strong_sites.head(n=20).to_html(index=False)))
       <td>sensitive</td>
       <td>485</td>
       <td>G</td>
-      <td>0.9733</td>
+      <td>0.9854</td>
       <td>34</td>
       <td>G485R (32), G485S (2)</td>
     </tr>
@@ -408,25 +408,34 @@ display(HTML(sitecounts_strong_sites.head(n=20).to_html(index=False)))
       <td>sensitive</td>
       <td>485</td>
       <td>G</td>
-      <td>1.2090</td>
+      <td>1.2150</td>
       <td>34</td>
       <td>G485R (32), G485S (2)</td>
     </tr>
     <tr>
-      <td>CB6_400</td>
+      <td>REGN10933+REGN10987_400</td>
       <td>sensitive</td>
       <td>455</td>
       <td>L</td>
-      <td>4.6550</td>
+      <td>0.1846</td>
       <td>33</td>
       <td>L455F (33)</td>
     </tr>
     <tr>
-      <td>REGN10933+REGN10987_400</td>
+      <td>CB6_400</td>
       <td>default</td>
       <td>455</td>
       <td>L</td>
-      <td>0.3302</td>
+      <td>4.6230</td>
+      <td>33</td>
+      <td>L455F (33)</td>
+    </tr>
+    <tr>
+      <td>REGN10933_400</td>
+      <td>sensitive</td>
+      <td>455</td>
+      <td>L</td>
+      <td>6.8360</td>
       <td>33</td>
       <td>L455F (33)</td>
     </tr>
@@ -435,25 +444,16 @@ display(HTML(sitecounts_strong_sites.head(n=20).to_html(index=False)))
       <td>default</td>
       <td>455</td>
       <td>L</td>
-      <td>6.7860</td>
+      <td>6.8360</td>
       <td>33</td>
       <td>L455F (33)</td>
     </tr>
     <tr>
       <td>CB6_400</td>
-      <td>default</td>
-      <td>455</td>
-      <td>L</td>
-      <td>4.6550</td>
-      <td>33</td>
-      <td>L455F (33)</td>
-    </tr>
-    <tr>
-      <td>REGN10933+REGN10987_400</td>
       <td>sensitive</td>
       <td>455</td>
       <td>L</td>
-      <td>0.3302</td>
+      <td>4.6230</td>
       <td>33</td>
       <td>L455F (33)</td>
     </tr>
@@ -595,14 +595,6 @@ for name, specs in escape_profiles_config.items():
       <td>N439K (2242)</td>
     </tr>
     <tr>
-      <td>REGN10933 + REGN10987</td>
-      <td>sensitive</td>
-      <td>453</td>
-      <td>Y</td>
-      <td>330</td>
-      <td>Y453F (330)</td>
-    </tr>
-    <tr>
       <td>REGN10933</td>
       <td>sensitive</td>
       <td>453</td>
@@ -627,7 +619,15 @@ for name, specs in escape_profiles_config.items():
       <td>E484Q (29), E484K (27), E484A (6), E484D (3), E484R (1)</td>
     </tr>
     <tr>
-      <td>REGN10933 + REGN10987</td>
+      <td>LY-CoV016</td>
+      <td>sensitive</td>
+      <td>484</td>
+      <td>E</td>
+      <td>66</td>
+      <td>E484Q (29), E484K (27), E484A (6), E484D (3), E484R (1)</td>
+    </tr>
+    <tr>
+      <td>REGN10987</td>
       <td>sensitive</td>
       <td>446</td>
       <td>G</td>
@@ -635,7 +635,7 @@ for name, specs in escape_profiles_config.items():
       <td>G446V (29), G446S (7), G446A (2)</td>
     </tr>
     <tr>
-      <td>REGN10987</td>
+      <td>REGN10933 + REGN10987</td>
       <td>sensitive</td>
       <td>446</td>
       <td>G</td>
