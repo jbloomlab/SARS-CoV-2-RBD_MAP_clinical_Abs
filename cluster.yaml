@@ -11,18 +11,18 @@ counts_to_scores:
   mem: 100000
 
 scores_to_frac_escape:
-  cpus: 16
+  cpus: 8
   time: 0-4
   mem: 100000
   constraint: gizmok
 
 gisaid_rbd_mutations:
-  cpus: 16
+  cpus: 8
   time: 0-4
   mem: 50000
 
 escape_profiles:
-  cpus: 16
+  cpus: 8
   time: 0-4
   mem: 50000
 

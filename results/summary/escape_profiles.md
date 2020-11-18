@@ -139,11 +139,11 @@ display(HTML(escape_fracs.head().to_html(index=False)))
       <td>A</td>
       <td>E</td>
       <td>331</td>
-      <td>0.001044</td>
+      <td>0.001093</td>
       <td>0.004109</td>
-      <td>0.03952</td>
+      <td>0.04032</td>
       <td>0.06292</td>
-      <td>0.00247</td>
+      <td>0.00252</td>
       <td>0.003932</td>
       <td>2</td>
     </tr>
@@ -154,11 +154,11 @@ display(HTML(escape_fracs.head().to_html(index=False)))
       <td>D</td>
       <td>E</td>
       <td>331</td>
-      <td>0.002087</td>
+      <td>0.002187</td>
       <td>0.001886</td>
-      <td>0.03952</td>
+      <td>0.04032</td>
       <td>0.06292</td>
-      <td>0.00247</td>
+      <td>0.00252</td>
       <td>0.003932</td>
       <td>1</td>
     </tr>
@@ -169,11 +169,11 @@ display(HTML(escape_fracs.head().to_html(index=False)))
       <td>E</td>
       <td>E</td>
       <td>331</td>
-      <td>0.001044</td>
+      <td>0.001093</td>
       <td>0.001399</td>
-      <td>0.03952</td>
+      <td>0.04032</td>
       <td>0.06292</td>
-      <td>0.00247</td>
+      <td>0.00252</td>
       <td>0.003932</td>
       <td>2</td>
     </tr>
@@ -184,11 +184,11 @@ display(HTML(escape_fracs.head().to_html(index=False)))
       <td>F</td>
       <td>E</td>
       <td>331</td>
-      <td>0.001044</td>
+      <td>0.001093</td>
       <td>0.000753</td>
-      <td>0.03952</td>
+      <td>0.04032</td>
       <td>0.06292</td>
-      <td>0.00247</td>
+      <td>0.00252</td>
       <td>0.003932</td>
       <td>2</td>
     </tr>
@@ -199,11 +199,11 @@ display(HTML(escape_fracs.head().to_html(index=False)))
       <td>G</td>
       <td>E</td>
       <td>331</td>
-      <td>0.005013</td>
+      <td>0.005493</td>
       <td>0.027988</td>
-      <td>0.03952</td>
+      <td>0.04032</td>
       <td>0.06292</td>
-      <td>0.00247</td>
+      <td>0.00252</td>
       <td>0.003932</td>
       <td>2</td>
     </tr>

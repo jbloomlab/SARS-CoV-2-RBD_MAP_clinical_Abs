@@ -111,8 +111,8 @@ display(HTML(escape_dms.head().to_html(index=False)))
       <td>331</td>
       <td>N</td>
       <td>A</td>
-      <td>0.001044</td>
-      <td>0.03952</td>
+      <td>0.001093</td>
+      <td>0.04032</td>
       <td>-0.03</td>
       <td>-0.11</td>
     </tr>
@@ -121,8 +121,8 @@ display(HTML(escape_dms.head().to_html(index=False)))
       <td>331</td>
       <td>N</td>
       <td>D</td>
-      <td>0.002087</td>
-      <td>0.03952</td>
+      <td>0.002187</td>
+      <td>0.04032</td>
       <td>0.03</td>
       <td>-0.44</td>
     </tr>
@@ -131,8 +131,8 @@ display(HTML(escape_dms.head().to_html(index=False)))
       <td>331</td>
       <td>N</td>
       <td>E</td>
-      <td>0.001044</td>
-      <td>0.03952</td>
+      <td>0.001093</td>
+      <td>0.04032</td>
       <td>0.00</td>
       <td>-0.31</td>
     </tr>
@@ -141,8 +141,8 @@ display(HTML(escape_dms.head().to_html(index=False)))
       <td>331</td>
       <td>N</td>
       <td>F</td>
-      <td>0.001044</td>
-      <td>0.03952</td>
+      <td>0.001093</td>
+      <td>0.04032</td>
       <td>-0.10</td>
       <td>-0.70</td>
     </tr>
@@ -151,8 +151,8 @@ display(HTML(escape_dms.head().to_html(index=False)))
       <td>331</td>
       <td>N</td>
       <td>G</td>
-      <td>0.005013</td>
-      <td>0.03952</td>
+      <td>0.005493</td>
+      <td>0.04032</td>
       <td>-0.04</td>
       <td>-0.25</td>
     </tr>
@@ -488,8 +488,8 @@ display(HTML(escape_dms_selection.head().to_html(index=False)))
       <td>331</td>
       <td>N</td>
       <td>A</td>
-      <td>0.001341</td>
-      <td>0.02521</td>
+      <td>0.000985</td>
+      <td>0.023</td>
       <td>-0.03</td>
       <td>-0.11</td>
       <td>Baum_and_Li_in_vivo</td>
@@ -504,8 +504,8 @@ display(HTML(escape_dms_selection.head().to_html(index=False)))
       <td>331</td>
       <td>N</td>
       <td>D</td>
-      <td>0.001198</td>
-      <td>0.02521</td>
+      <td>0.000977</td>
+      <td>0.023</td>
       <td>0.03</td>
       <td>-0.44</td>
       <td>Baum_and_Li_in_vivo</td>
@@ -520,8 +520,8 @@ display(HTML(escape_dms_selection.head().to_html(index=False)))
       <td>331</td>
       <td>N</td>
       <td>E</td>
-      <td>0.001686</td>
-      <td>0.02521</td>
+      <td>0.001563</td>
+      <td>0.023</td>
       <td>0.00</td>
       <td>-0.31</td>
       <td>Baum_and_Li_in_vivo</td>
@@ -536,8 +536,8 @@ display(HTML(escape_dms_selection.head().to_html(index=False)))
       <td>331</td>
       <td>N</td>
       <td>F</td>
-      <td>0.001700</td>
-      <td>0.02521</td>
+      <td>0.001522</td>
+      <td>0.023</td>
       <td>-0.10</td>
       <td>-0.70</td>
       <td>Baum_and_Li_in_vivo</td>
@@ -552,8 +552,8 @@ display(HTML(escape_dms_selection.head().to_html(index=False)))
       <td>331</td>
       <td>N</td>
       <td>G</td>
-      <td>0.001403</td>
-      <td>0.02521</td>
+      <td>0.001360</td>
+      <td>0.023</td>
       <td>-0.04</td>
       <td>-0.25</td>
       <td>Baum_and_Li_in_vivo</td>
@@ -631,8 +631,8 @@ display(HTML(escape_dms_selection.head().to_html(index=False)))
       <td>331</td>
       <td>N</td>
       <td>A</td>
-      <td>0.001341</td>
-      <td>0.02521</td>
+      <td>0.000985</td>
+      <td>0.023</td>
       <td>-0.03</td>
       <td>-0.11</td>
       <td>Baum_and_Li_in_vivo</td>
@@ -650,8 +650,8 @@ display(HTML(escape_dms_selection.head().to_html(index=False)))
       <td>331</td>
       <td>N</td>
       <td>D</td>
-      <td>0.001198</td>
-      <td>0.02521</td>
+      <td>0.000977</td>
+      <td>0.023</td>
       <td>0.03</td>
       <td>-0.44</td>
       <td>Baum_and_Li_in_vivo</td>
@@ -669,8 +669,8 @@ display(HTML(escape_dms_selection.head().to_html(index=False)))
       <td>331</td>
       <td>N</td>
       <td>E</td>
-      <td>0.001686</td>
-      <td>0.02521</td>
+      <td>0.001563</td>
+      <td>0.023</td>
       <td>0.00</td>
       <td>-0.31</td>
       <td>Baum_and_Li_in_vivo</td>
@@ -688,8 +688,8 @@ display(HTML(escape_dms_selection.head().to_html(index=False)))
       <td>331</td>
       <td>N</td>
       <td>F</td>
-      <td>0.001700</td>
-      <td>0.02521</td>
+      <td>0.001522</td>
+      <td>0.023</td>
       <td>-0.10</td>
       <td>-0.70</td>
       <td>Baum_and_Li_in_vivo</td>
@@ -707,8 +707,8 @@ display(HTML(escape_dms_selection.head().to_html(index=False)))
       <td>331</td>
       <td>N</td>
       <td>G</td>
-      <td>0.001403</td>
-      <td>0.02521</td>
+      <td>0.001360</td>
+      <td>0.023</td>
       <td>-0.04</td>
       <td>-0.25</td>
       <td>Baum_and_Li_in_vivo</td>

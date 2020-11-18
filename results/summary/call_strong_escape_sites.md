@@ -97,11 +97,11 @@ display(HTML(escape_fracs.head().to_html(index=False)))
       <td>A</td>
       <td>E</td>
       <td>331</td>
-      <td>0.001044</td>
+      <td>0.001093</td>
       <td>0.004109</td>
-      <td>0.03952</td>
+      <td>0.04032</td>
       <td>0.06292</td>
-      <td>0.00247</td>
+      <td>0.00252</td>
       <td>0.003932</td>
       <td>2</td>
     </tr>
@@ -112,11 +112,11 @@ display(HTML(escape_fracs.head().to_html(index=False)))
       <td>D</td>
       <td>E</td>
       <td>331</td>
-      <td>0.002087</td>
+      <td>0.002187</td>
       <td>0.001886</td>
-      <td>0.03952</td>
+      <td>0.04032</td>
       <td>0.06292</td>
-      <td>0.00247</td>
+      <td>0.00252</td>
       <td>0.003932</td>
       <td>1</td>
     </tr>
@@ -127,11 +127,11 @@ display(HTML(escape_fracs.head().to_html(index=False)))
       <td>E</td>
       <td>E</td>
       <td>331</td>
-      <td>0.001044</td>
+      <td>0.001093</td>
       <td>0.001399</td>
-      <td>0.03952</td>
+      <td>0.04032</td>
       <td>0.06292</td>
-      <td>0.00247</td>
+      <td>0.00252</td>
       <td>0.003932</td>
       <td>2</td>
     </tr>
@@ -142,11 +142,11 @@ display(HTML(escape_fracs.head().to_html(index=False)))
       <td>F</td>
       <td>E</td>
       <td>331</td>
-      <td>0.001044</td>
+      <td>0.001093</td>
       <td>0.000753</td>
-      <td>0.03952</td>
+      <td>0.04032</td>
       <td>0.06292</td>
-      <td>0.00247</td>
+      <td>0.00252</td>
       <td>0.003932</td>
       <td>2</td>
     </tr>
@@ -157,11 +157,11 @@ display(HTML(escape_fracs.head().to_html(index=False)))
       <td>G</td>
       <td>E</td>
       <td>331</td>
-      <td>0.005013</td>
+      <td>0.005493</td>
       <td>0.027988</td>
-      <td>0.03952</td>
+      <td>0.04032</td>
       <td>0.06292</td>
-      <td>0.00247</td>
+      <td>0.00252</td>
       <td>0.003932</td>
       <td>2</td>
     </tr>
@@ -365,13 +365,13 @@ strong_sites.to_csv(config['strong_escape_sites'], index=False)
       <th>0</th>
       <td>CB6_400</td>
       <td>405</td>
-      <td>2.161</td>
+      <td>2.213</td>
       <td>default</td>
-      <td>0.044215</td>
-      <td>17.82</td>
-      <td>0.44215</td>
+      <td>0.04434</td>
+      <td>17.83</td>
+      <td>0.4434</td>
       <td>True</td>
-      <td>1.782</td>
+      <td>1.783</td>
       <td>True</td>
       <td>0</td>
       <td>True</td>
@@ -382,13 +382,13 @@ strong_sites.to_csv(config['strong_escape_sites'], index=False)
       <th>1</th>
       <td>CB6_400</td>
       <td>417</td>
-      <td>17.820</td>
+      <td>17.830</td>
       <td>default</td>
-      <td>0.044215</td>
-      <td>17.82</td>
-      <td>0.44215</td>
+      <td>0.04434</td>
+      <td>17.83</td>
+      <td>0.4434</td>
       <td>True</td>
-      <td>1.782</td>
+      <td>1.783</td>
       <td>True</td>
       <td>0</td>
       <td>True</td>
@@ -399,13 +399,13 @@ strong_sites.to_csv(config['strong_escape_sites'], index=False)
       <th>2</th>
       <td>CB6_400</td>
       <td>420</td>
-      <td>7.817</td>
+      <td>7.833</td>
       <td>default</td>
-      <td>0.044215</td>
-      <td>17.82</td>
-      <td>0.44215</td>
+      <td>0.04434</td>
+      <td>17.83</td>
+      <td>0.4434</td>
       <td>True</td>
-      <td>1.782</td>
+      <td>1.783</td>
       <td>True</td>
       <td>0</td>
       <td>True</td>
@@ -416,13 +416,13 @@ strong_sites.to_csv(config['strong_escape_sites'], index=False)
       <th>3</th>
       <td>CB6_400</td>
       <td>421</td>
-      <td>1.926</td>
+      <td>1.940</td>
       <td>default</td>
-      <td>0.044215</td>
-      <td>17.82</td>
-      <td>0.44215</td>
+      <td>0.04434</td>
+      <td>17.83</td>
+      <td>0.4434</td>
       <td>True</td>
-      <td>1.782</td>
+      <td>1.783</td>
       <td>True</td>
       <td>0</td>
       <td>True</td>
@@ -433,13 +433,13 @@ strong_sites.to_csv(config['strong_escape_sites'], index=False)
       <th>4</th>
       <td>CB6_400</td>
       <td>455</td>
-      <td>4.655</td>
+      <td>4.623</td>
       <td>default</td>
-      <td>0.044215</td>
-      <td>17.82</td>
-      <td>0.44215</td>
+      <td>0.04434</td>
+      <td>17.83</td>
+      <td>0.4434</td>
       <td>True</td>
-      <td>1.782</td>
+      <td>1.783</td>
       <td>True</td>
       <td>0</td>
       <td>True</td>
