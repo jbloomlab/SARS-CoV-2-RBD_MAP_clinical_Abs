@@ -1,7 +1,7 @@
 ---
 title: "Custom analyses clinical mAbs"
 author: "Tyler Starr"
-date: "10/15/2020"
+date: "11/17/2020"
 output: html_document
 ---
 
@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = T)
 knitr::opts_chunk$set(dev.args = list(png = list(type = "cairo")))
 
 #list of packages to install/load
-packages = c("yaml","data.table","tidyverse","ggrepel")
+packages = c("yaml","data.table","tidyverse","ggrepel","bio3d")
 #install any packages not already installed
 installed_packages <- packages %in% rownames(installed.packages())
 if(any(installed_packages == F)){
@@ -39,70 +39,33 @@ Session info for reproducing environment:
 sessionInfo()
 ```
 
-## Part 1: Manual identification of additional sites of escape for logoplot displays
+## Data input and formatting
 
-Current config sets "sites of strong escape" cutoffs that remove display of escape sites where just one or two mutations confer escape, even if there is a sensible underlying mechanism by which just the single amino acid change can confer the escape. We can manually add sites to profiles, but want to have a methodological basis for what's added back in.
+Read in escape fractions, rename some things to make them easier to work with.
 
-Here, we add a second filter for identifying strong sites for logoplot displays, based on the max effect of a mutation at a site. If a site has a mutation with escape at least 50% the effect of the strongest escape site, we include it.
-
-```{r secondary_max_cutoff}
+```{r data input}
 scores <- data.table(read.csv(file=config$escape_fracs,stringsAsFactors=F))
 
-scores <- scores[selection %in% names(profiles_config$clinical_antibodies$conditions) & library=="average", .(selection,condition,site,protein_site,wildtype,mutation,mut_escape_frac_epistasis_model,site_total_escape_frac_epistasis_model)]
+scores <- scores[selection %in% names(profiles_config$`REGN_and_LY-CoV016`$conditions) & library=="average", .(selection,condition,site,protein_site,wildtype,mutation,mut_escape_frac_epistasis_model,site_total_escape_frac_epistasis_model)]
 
 setnames(scores,"mut_escape_frac_epistasis_model","mut_escape_frac");setnames(scores,"site_total_escape_frac_epistasis_model","site_total_escape")
 
-scores[,antibody:=as.character(profiles_config$clinical_antibodies$conditions[condition])]
+scores[,antibody:=as.character(profiles_config$`REGN_and_LY-CoV016`$conditions[condition])]
 
 scores <- scores[,.(antibody,site,protein_site,wildtype,mutation,mut_escape_frac,site_total_escape)]
 
 scores[,site_max_escape:=max(mut_escape_frac,na.rm=T),by=c("antibody","site")]
 
-#add column indicating if max escape is at least 50% the max max-escape
-scores[,sig_max_escape:=F]
-scores[site_max_escape>0.5*max(scores[antibody==antibody,site_max_escape]),sig_max_escape:=T]
-
-strong_sites_max <- unique(scores[sig_max_escape==T,.(antibody,protein_site)])
-
-#compare to the strong sites called from the total escape metric
-strong_sites_total <- data.table(read.csv(file=config$strong_escape_sites,stringsAsFactors = F))[condition %in% names(profiles_config$clinical_antibodies$conditions) ,.(condition,site)]
-
-strong_sites_total[,antibody:=as.character(profiles_config$clinical_antibodies$conditions[condition])]
-
-strong_sites_total <- strong_sites_total[,.(antibody,site)]
-
-strong_sites_max[,new:=T]
-strong_sites_max[protein_site %in% strong_sites_total[antibody==antibody,site],new:=F]
-
-#output all new sites to be manually added to this profile's plots
-kable(strong_sites_max[new==T & !(protein_site %in% strong_sites_total$site),.(antibody,protein_site)])
-
-#add indicator column to scores df for strong sites by total escape cutoff metric, in addition to existing max escape flag
-scores[,sig_tot_escape:=F]
-for(i in 1:nrow(strong_sites_total)){
-  scores[antibody==strong_sites_total[i,antibody] & protein_site==strong_sites_total[i,site],sig_tot_escape:=T]
-}
-
 
 ```
 
-## Part 2: Circulating variants at the per-mut level: compare structural and functional epitopes
+## Part 1: Circulating variants at the per-mut level: compare structural and functional epitopes
 
-Current notebook on circulating mutations considers all mutations at a site together, regardless of the escape conferred by the particular mutation that is circulating. With the clinical mAbs, in addition to the sitewise diversity (e.g. as an indicator of what sites can accomodate diversity), we might be interested in the specific mutations themselves that are circulating, as that could have a direct effect on antibody therapies. Furthermore, we want to collate circulating variants at structural contact positions for antibodies, to see if there is any interesting difference in circulating variants at contact positions that do *not* facilitate escape from the antibody.
+Current notebook on circulating mutations considers all mutations at a site together, regardless of the escape conferred by the particular mutation that is circulating. With the clinical mAbs, in addition to the sitewise diversity (e.g. as an indicator of what sites can accommodate diversity), we might be interested in the specific mutations themselves that are circulating, as that could have a direct effect on antibody therapies. Furthermore, we want to collate circulating variants at structural contact positions for antibodies, to see if there is any interesting difference in circulating variants at contact positions that do *not* facilitate escape from the antibody.
 
-First, read in table reporting circulating variants. We will add new columns to our master data frame indicating the nobs and frequency on GISAID, and the number of countries in which a mutant has been observed. We also read in a file that indicates which RBD residues are structural contacts of each antibody, and annotate each column whether it is in structural contact with the antibody.
+We read in table reporting circulating variants. We add new columns to our data frame indicating the nobs and frequency on GISAID, and the number of countries in which a mutant has been observed. Then, First, for each antibody, we plot per-mutation escape fraction versus frequency (log10), with a 'pseudo-frequency' of 0.1x the lowest actual frequency, to enable log10 plotting)
 
-```{r circulating_variants}
-#read in table giving structural contact sites for each antibody
-contacts <- read.csv(config$structural_contacts,stringsAsFactors=F)
-#add indicator if a site is a contact position for the corresponding antibody
-scores[,contact:=as.character("F")]
-for(i in 1:nrow(contacts)){
-  scores[antibody==contacts[i,"name"] & protein_site==contacts[i,"position"],contact:=as.character("T")]
-}
-
-scores[antibody %in% c("COV2-2196","COV2-2130","COV2-2196+COV2-2130"),contact:=as.character("NA")]
-
+```{r mutation_escape_v_freq, echo=T, fig.width=12, fig.height=3.75, fig.align="center", dpi=300,dev="png"}
 #read in table giving mutant frequencies on GISAID
 counts <- read.csv(config$gisaid_mutation_counts,stringsAsFactors=F)
 #add to scores table
@@ -113,73 +76,170 @@ for(i in 1:nrow(counts)){
   scores[protein_site==counts[i,"site"] & mutation==counts[i,"mutant"],frequency:=counts[i,"frequency"]]
 }
 
-#make factor for antibody name labels, in desired order
-scores$antibody <- factor(scores$antibody,levels=c("CB6","REGN10933","COV2-2196","S309","REGN10987","COV2-2130","REGN10933+REGN10987","COV2-2196+COV2-2130"))
-#make factor for contacts labels, in desired order
-scores$contact <- factor(scores$contact, levels=c("T","F","NA"))
+#set factor order for antibodies
+scores$antibody <- factor(scores$antibody,levels=c("REGN10933","REGN10987","REGN10933 + REGN10987","LY-CoV016"))
 
-```
-
-First, for each antibody, plot per-mutation escape fraction versus frequency (log10), with a 'pseudo-frequency' of 0.1x the lowest actualf requency, to enable log10 plotting)
-
-```{r mutation_escape_v_freq_mAb, echo=T, fig.width=8, fig.height=6, fig.align="center", dpi=300,dev="png"}
 scores[,pseudo_frequency:=frequency]
 scores[frequency==0,pseudo_frequency:=0.1*min(scores[frequency>0,frequency])]
 
-p1 <- ggplot(scores[antibody %in% c("S309","CB6","REGN10933","REGN10987","COV2-2130","COV2-2196"),])+aes(x=pseudo_frequency,y=mut_escape_frac)+
-  geom_point(alpha=0.5)+
-  facet_wrap(~antibody,nrow=2)+
-  scale_x_continuous(trans="log10")+
-  scale_y_continuous(limits=c(0,1.05))+
-  theme_classic()+
-  xlab('mutant frequency on GISAID (log10 scale)')+
-  ylab('mutant escape fraction')+
-  geom_text_repel(aes(label=ifelse(mut_escape_frac>0.25 & frequency>1e-6,as.character(paste(wildtype,protein_site,mutation,sep="")),'')),size=3)
-p1
-
-invisible(dev.print(pdf, paste(output_dir,"/circ-mut-scatter_mAbs.pdf",sep="")))
-
-```
-
-Make an alternate version of this plot where we annotate by yes/no structural contact, and also label circulating mutations at contact residues that do not escape.
-
-```{r mutation_escape_v_freq_mAb_contacts, echo=T, fig.width=9, fig.height=6, fig.align="center", dpi=300,dev="png"}
-temp <- scores[order(contact,decreasing=T),]
-
-p1 <- ggplot(temp[antibody %in% c("S309","CB6","REGN10933","REGN10987","COV2-2130","COV2-2196")])+aes(x=pseudo_frequency,y=mut_escape_frac,color=contact)+
-  geom_point(alpha=0.5)+
-  facet_wrap(~antibody,nrow=2)+
-  scale_x_continuous(trans="log10")+
-  scale_y_continuous(limits=c(-0.05,1.05))+
-  theme_classic()+
-  xlab('mutant frequency on GISAID (log10 scale)')+
-  ylab('mutant escape fraction')+
-  scale_color_manual(values=c("#0072B2","#E69F00","#56B4E9"))+
-  geom_text_repel(aes(label=ifelse(mut_escape_frac>0.25 & frequency>1e-6,as.character(paste(wildtype,protein_site,mutation,sep="")),'')),size=2.5)+
-  geom_text_repel(aes(label=ifelse(contact=="T" & mut_escape_frac<0.25 & frequency>1e-5,as.character(paste(wildtype,protein_site,mutation,sep="")),'')),size=2.5)
-p1
-
-invisible(dev.print(pdf, paste(output_dir,"/circ-mut-scatter_indicate-contact_mAbs.pdf",sep="")))
-
-```
-
-Make similar plots, for the cocktail combinations.
-
-```{r mutation_escape_v_freq_cocktail, echo=T, fig.width=6, fig.height=3.25, fig.align="center", dpi=300,dev="png"}
-p1 <- ggplot(scores[antibody %in% c("REGN10933+REGN10987","COV2-2196+COV2-2130")])+aes(x=pseudo_frequency,y=mut_escape_frac)+
-  geom_point(alpha=0.75)+
+p1 <- ggplot(scores)+aes(x=pseudo_frequency,y=mut_escape_frac)+
+  geom_point(shape=16, alpha=0.5, size=2.25)+
   facet_wrap(~antibody,nrow=1)+
-  theme_classic()+
   scale_x_continuous(trans="log10")+
   scale_y_continuous(limits=c(0,1.05))+
+  theme_classic()+
   xlab('mutant frequency on GISAID (log10 scale)')+
   ylab('mutant escape fraction')+
-  geom_text_repel(aes(label=ifelse(mut_escape_frac>0.25 & frequency>1e-6,as.character(paste(wildtype,protein_site,mutation,sep="")),'')),size=2.5)
+  geom_text_repel(aes(label=ifelse((mut_escape_frac>0.15 & frequency>1e-6) | (mut_escape_frac>0.05 & frequency>1e-3),as.character(paste(wildtype,protein_site,mutation,sep="")),'')),size=3,color="gray40")
 p1
 
-invisible(dev.print(pdf, paste(output_dir,"/circ-mut-scatter_mAb-cocktails.pdf",sep="")))
+invisible(dev.print(pdf, paste(output_dir,"/circ-mut-scatter_mAbs_REGN-LY.pdf",sep="")))
 
 ```
 
+## Part 2: Double mutants in RBD alignment?
 
+Want to know whether any sequences in the alignment of RBD sequences from GISAID have double mutants, and if so, whether any are dual escape from cocktail components.
+
+```{r identify_double_muts, echo=T, fig.width=4, fig.height=4, fig.align="center", dpi=300,dev="png"}
+#read in RBD alignment
+alignment <- bio3d::read.fasta(file="results/GISAID_mutations/RBD_alignment.fasta", rm.dup=T)
+
+#read in 'reference' sequence
+reference <- bio3d::read.fasta(file="results/GISAID_mutations/reference_RBD.fasta")
+
+#iterate through alignment (dumb, but effective), save index/id for any genotype that has multiple RBD mutations
+multiples_id <- c()
+multiples_ndiff <- c()
+multiples_muts <- c()
+for(i in 1:nrow(alignment$ali)){
+  diff <- 0
+  muts <- c()
+  for(j in 1:ncol(alignment$ali)){
+    if(alignment$ali[i,j] != reference$ali[1,j] & !(alignment$ali[i,j] %in% c("X","-"))){
+      diff <- diff+1
+      muts <- c(muts,paste(reference$ali[1,j],j+330,alignment$ali[i,j],sep=""))
+    }
+  }
+  if(diff>1){
+    print(i)
+    multiples_id <- c(multiples_id,alignment$id[i])
+    multiples_ndiff <- c(multiples_ndiff, diff)
+    multiples_muts <- c(multiples_muts,list(muts))
+  }
+}
+
+multiples <- data.frame(id=multiples_id,n=multiples_ndiff)
+for(i in 1:nrow(multiples)){
+  multiples$muts[i] <- list(multiples_muts[i][[1]])
+}
+
+#make single 'mutant' column in scores data frame
+scores[,mutant:=paste(wildtype,protein_site,mutation,sep="")]
+  
+#iterate through, and list the maximum REGN10933 and REGN10987 escape fracs for the listed mutations
+for(i in 1:nrow(multiples)){
+  muts <- multiples[i,"muts"][[1]]
+  escapes_REGN10933 <- scores[mutant %in% muts & antibody=="REGN10933",mut_escape_frac]
+  escapes_REGN10987 <- scores[mutant %in% muts & antibody=="REGN10987",mut_escape_frac]
+  multiples$max_REGN10933[i] <- max(escapes_REGN10933,na.rm=T)
+  multiples$max_REGN10987[i] <- max(escapes_REGN10987,na.rm=T)
+}
+
+plot(multiples$max_REGN10933,multiples$max_REGN10987,pch=16,xlab="max escape from REGN10933",ylab="max escape from REGN10987",col="#00000067")
+
+```
+
+## Part 3: escape within or without the structural epitope
+
+We want to try a few plots -- at the per-mut and per-site level, compare distribution of escape scores between structural contacts and non-contacts. We should try the contact/non-contact, but also a "close" category corresponding to 4-8A distance? Means we'll probably want to re-do the structural analysis here within this "custom analyses" script.
+
+First, load pdbs, and generate list of residues that are <4A or 4-8A from each mAb
+
+```{r define_structural_contacts}
+pdb_REGN <- read.pdb(file="data/pdbs/6xdg.pdb")
+pdb_CB6 <- read.pdb(file="data/pdbs/7c01_single.pdb")
+
+contacts_REGN10933_4A <- binding.site(pdb_REGN, 
+                                      a.inds=atom.select(pdb_REGN, chain="E"),
+                                      b.inds=atom.select(pdb_REGN,chain=c("B","D")),
+                                      cutoff=4,hydrogens=F)$resno
+contacts_REGN10933_4to8A <- binding.site(pdb_REGN, 
+                                      a.inds=atom.select(pdb_REGN, chain="E"),
+                                      b.inds=atom.select(pdb_REGN,chain=c("B","D")),
+                                      cutoff=8,hydrogens=F)$resno
+contacts_REGN10933_4to8A <- contacts_REGN10933_4to8A[!(contacts_REGN10933_4to8A %in% contacts_REGN10933_4A)]
+
+contacts_REGN10987_4A <- binding.site(pdb_REGN, 
+                                      a.inds=atom.select(pdb_REGN, chain="E"),
+                                      b.inds=atom.select(pdb_REGN,chain=c("A","C")),
+                                      cutoff=4,hydrogens=F)$resno
+contacts_REGN10987_4to8A <- binding.site(pdb_REGN, 
+                                      a.inds=atom.select(pdb_REGN, chain="E"),
+                                      b.inds=atom.select(pdb_REGN,chain=c("A","C")),
+                                      cutoff=8,hydrogens=F)$resno
+contacts_REGN10987_4to8A <- contacts_REGN10987_4to8A[!(contacts_REGN10987_4to8A %in% contacts_REGN10987_4A)]
+
+contacts_CB6_4A <- binding.site(pdb_CB6, 
+                                      a.inds=atom.select(pdb_CB6, chain="A"),
+                                      b.inds=atom.select(pdb_CB6,chain=c("H","L")),
+                                      cutoff=4,hydrogens=F)$resno
+contacts_CB6_4to8A <- binding.site(pdb_CB6, 
+                                      a.inds=atom.select(pdb_CB6, chain="A"),
+                                      b.inds=atom.select(pdb_CB6,chain=c("H","L")),
+                                      cutoff=8,hydrogens=F)$resno
+contacts_CB6_4to8A <- contacts_CB6_4to8A[!(contacts_CB6_4to8A %in% contacts_CB6_4A)]
+
+```
+Next, make jitterplots showing site total escape for the three categories of structural class.
+
+```{r plot_total_escape_contacts, echo=T, fig.width=6, fig.height=3, fig.align="center", dpi=300,dev="png"}
+temp <- scores[antibody %in% c("LY-CoV016","REGN10987","REGN10933"),]
+#add column whether a site is in direct contact, proximal, or distal to interface
+temp[,contact:="distal"]
+temp[antibody=="LY-CoV016" & protein_site %in% contacts_CB6_4A,contact:="contact"]
+temp[antibody=="LY-CoV016" & protein_site %in% contacts_CB6_4to8A,contact:="proximal"]
+temp[antibody=="REGN10933" & protein_site %in% contacts_REGN10933_4A,contact:="contact"]
+temp[antibody=="REGN10933" & protein_site %in% contacts_REGN10933_4to8A,contact:="proximal"]
+temp[antibody=="REGN10987" & protein_site %in% contacts_REGN10987_4A,contact:="contact"]
+temp[antibody=="REGN10987" & protein_site %in% contacts_REGN10987_4to8A,contact:="proximal"]
+temp$contact <- factor(temp$contact,levels=c("contact","proximal","distal"))
+
+#add value indicating the heuristic cutoff for "strong" escape for each mAb
+cutoff_LYCoV016 <- max(5*median(temp[antibody=="LY-CoV016",site_total_escape]),0.05*max(temp[antibody=="LY-CoV016",site_total_escape]))
+cutoff_REGN10933 <- max(5*median(temp[antibody=="REGN10933",site_total_escape]),0.05*max(temp[antibody=="REGN10933",site_total_escape]))
+cutoff_REGN10987 <- max(5*median(temp[antibody=="REGN10987",site_total_escape]),0.05*max(temp[antibody=="REGN10987",site_total_escape]))
+
+temp[antibody=="LY-CoV016",cutoff:=cutoff_LYCoV016]
+temp[antibody=="REGN10933",cutoff:=cutoff_REGN10933]
+temp[antibody=="REGN10987",cutoff:=cutoff_REGN10987]
+
+#sitewise
+ggplot(unique(temp[,.(antibody,protein_site,site_total_escape,contact)]),aes(x=contact,y=site_total_escape))+
+  geom_jitter(width=0.15, alpha=0.5,height=0,size=2.25,shape=16)+
+  geom_hline(data=unique(temp[,.(antibody,cutoff)]),aes(yintercept=cutoff),linetype="dashed",color="gray50")+
+  theme_classic()+
+  theme(axis.text.x=element_text(angle=90,hjust=1))+
+  xlab("structural context")+ylab("sitewise total escape")+
+  facet_wrap(~antibody,nrow=1)
+
+invisible(dev.print(pdf, paste(output_dir,"/escape_by_contact_type.pdf",sep="")))
+
+```
+Table with number of sites in each structural category, and number of sites of "strong" escape
+
+```{r table, strong_sites_by_structure}
+temp <- unique(temp[,.(antibody,protein_site,site_total_escape,contact,cutoff)])
+
+dt <- data.frame(antibody=c("REGN10933","REGN10987","LY-CoV016"),n_contact=NA,n_contact_escape=NA,n_proximal=NA,n_proximal_escape=NA,n_distal=NA,n_distal_escape=NA)
+for(i in 1:nrow(dt)){
+  dt$n_contact[i] <- nrow(temp[antibody==dt[i,"antibody"] & contact=="contact",])
+  dt$n_contact_escape[i] <- nrow(temp[antibody==dt[i,"antibody"] & contact=="contact" & site_total_escape>cutoff,])
+  dt$n_proximal[i] <- nrow(temp[antibody==dt[i,"antibody"] & contact=="proximal",])
+  dt$n_proximal_escape[i] <- nrow(temp[antibody==dt[i,"antibody"] & contact=="proximal" & site_total_escape>cutoff,])
+  dt$n_distal[i] <- nrow(temp[antibody==dt[i,"antibody"] & contact=="distal",])
+  dt$n_distal_escape[i] <- nrow(temp[antibody==dt[i,"antibody"] & contact=="distal" & site_total_escape>cutoff,])
+}
+kable(dt)
+```
 
