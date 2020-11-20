@@ -41,6 +41,10 @@ Then activate it as above.
 ### Input data
 The input data are specified in [./data/](data); see the README in that subdirectory for more details.
 
+Note that this pipeline assumes you are using the FASTQ files on the Fred Hutch server.
+Otherwise you need to download them from the SRA.
+They are BioSample *SAMN16850904* under BioProject [PRJNA639956](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA639956).
+
 ### Running the code
 The analysis consists of Jupyter notebooks in the top-level directory along with some additional code in [Snakefile](Snakefile).
 You can run the analysis by using [Snakemake](https://snakemake.readthedocs.io) to run [Snakefile](Snakefile), specifying the conda environment, as in:
