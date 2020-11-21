@@ -109,4 +109,5 @@ Baum_and_Li_in_vivo:
       K444Q: cell-culture escape
       V445A: cell-culture escape
       N440D: chronic-patient escape
-  legend_position: 'right'
+  legend_position: 'top'
+  legend_ncol: 3
