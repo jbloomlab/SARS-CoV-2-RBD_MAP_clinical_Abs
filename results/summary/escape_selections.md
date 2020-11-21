@@ -825,7 +825,9 @@ for selection_set, df in escape_dms_selection.groupby('selection_set'):
          guides(alpha=False, size=False,
                 shape=guide_legend(override_aes={'size': 3},
                                    title='mutation type'),
-                color=guide_legend(title='mutation type'),
+                color=guide_legend(title='mutation type',
+                                   ncol=None if 'legend_ncol' not in selection_results[selection_set]
+                                        else selection_results[selection_set]['legend_ncol']),
                 ) +
          theme(figure_size=(2.3 * df['antibody'].nunique(), 2.3),
                legend_position='top' if 'legend_position' not in selection_results[selection_set]
