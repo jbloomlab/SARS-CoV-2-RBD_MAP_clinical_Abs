@@ -432,6 +432,8 @@ for set_name, condition_set in condition_sets.items():
 
     Writing `dms-view` input file for REGN_and_LY-CoV016 mapped to PDB 6m0j to results/supp_data/REGN_and_LY-CoV016_6m0j_dms-view_data.csv
     Writing `dms-view` input file for REGN_and_LY-CoV016 mapped to PDB 6xdg to results/supp_data/REGN_and_LY-CoV016_6xdg_dms-view_data.csv
+    Writing `dms-view` input file for REGN_and_LY-CoV016 mapped to PDB 6xdg_REGN10933 to results/supp_data/REGN_and_LY-CoV016_6xdg_REGN10933_dms-view_data.csv
+    Writing `dms-view` input file for REGN_and_LY-CoV016 mapped to PDB 6xdg_REGN10987 to results/supp_data/REGN_and_LY-CoV016_6xdg_REGN10987_dms-view_data.csv
     Writing `dms-view` input file for REGN_and_LY-CoV016 mapped to PDB 7c01 to results/supp_data/REGN_and_LY-CoV016_7c01_dms-view_data.csv
 
 
