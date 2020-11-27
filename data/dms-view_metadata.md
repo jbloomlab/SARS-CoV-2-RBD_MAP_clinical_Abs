@@ -1,9 +1,9 @@
 ## Prospective mapping of viral mutations that escape antibodies used to treat COVID-19
 
-For background, see our paper **here (add link)**.
+For experimental background, see our paper **here (add link)**.
 
 ### What data are shown here?
-We are showing mutations to the SARS-CoV-2 RBD that escape antibody binding as measured using mutational antigenic profiling.
+We are showing mutations to the SARS-CoV-2 RBD that escape antibody binding as measured using mutational antigenic profiling. Raw data is available [here](https://github.com/jbloomlab/SARS-CoV-2-RBD_MAP_clinical_Abs/blob/main/results/supp_data/REGN_and_LY-CoV016_raw_data.csv).
 The drop-down menus can be used to select the escape-mutation maps for each antibody.
 
 When you click on sites, they will be highlighted on the protein structure of the ACE2-bound RBD ([PDB 6M0J](https://www.rcsb.org/structure/6M0J), or antibody-bound RBD structures ([PDB 6XDG](https://www.rcsb.org/structure/6XDG) and [PDB 7C01](https://www.rcsb.org/structure/7C01)).
