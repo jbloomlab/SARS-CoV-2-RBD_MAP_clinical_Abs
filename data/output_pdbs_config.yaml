@@ -24,6 +24,22 @@
     - REGN10987_400
     - REGN10933+REGN10987_400
 
+# 6xdg_REGN10933-only is REGN10933 bound to RBD
+6xdg:
+  pdbfile: data/pdbs/6xdg_REGN10933-only.pdb
+  chains:
+    - E
+  conditions:
+    - REGN10933_400
+
+# 6xdg_REGN10987-only is REGN10987 bound to RBD
+6xdg:
+  pdbfile: data/pdbs/6xdg_REGN10987-only.pdb
+  chains:
+    - E
+  conditions:
+    - REGN10987_400
+
 # 7C01 is CB6 bound to RBD
 7c01:
   pdbfile: data/pdbs/7c01_single.pdb
