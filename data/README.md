@@ -10,7 +10,7 @@ This directory contains input data used for the analysis and configuration for s
 
  - [wildtype_sequence.fasta](wildtype_sequence.fasta): wildtype sequence of mutagenized gene.
 
- - [./pdbs/](pdbs): files downloaded from the [Protein Data Bank](https://www.rcsb.org/) for structural analyses. The 7c01.pdb structure was modified to give the 7c01_single.pdb: the original structure has two Fab:RBD complexes within the asymmetric unit, so we removed chains B, C, and D to leave just one complex for visualization.
+ - [./pdbs/](pdbs): files downloaded from the [Protein Data Bank](https://www.rcsb.org/) for structural analyses. The 7c01.pdb structure was modified to give the 7c01_single.pdb: the original structure has two Fab:RBD complexes within the asymmetric unit, so we removed chains B, C, and D to leave just one complex for visualization. Similarly, 6xdg.pdb was modified to generage REGN10933- and REGN10987-only bound structures for visualization.
 
  - [escape_profiles_config.yaml](escape_profiles_config.yaml): Information on how to plot the escape profiles; manually edit this to alter their plotting.
 
