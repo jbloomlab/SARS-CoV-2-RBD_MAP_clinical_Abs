@@ -118,7 +118,7 @@ REGN_Baum_and_Li_single_nt_color_escape:
   plot_auto_identified_sites: sensitive
   add_sites: []
   exclude_sites: []
-  site_color_scheme: tab:gray
+  site_color_scheme: '#999999'
   mutation_colors:
     E417: tab:red
     D440: tab:blue
