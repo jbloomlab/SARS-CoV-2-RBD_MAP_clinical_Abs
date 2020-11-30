@@ -60,8 +60,8 @@ Baum_and_Li_in_vivo:
   max_size: 1  # point size proportional to n observations with this max
   size_scale: 0.25  # scale all point sizes by this much
   shapes: ['o', 'x', '^', 'v', 'D']
-  colors: ['tab:gray', 'tan', 'tab:red', 'tab:blue', 'tab:purple']
-  alphas: [0.4, 0.4, 0.75, 0.75, 0.75]
+  colors: ['#999999', 'tan', 'tab:red', 'tab:blue', 'tab:purple']
+  alphas: [0.5, 0.4, 0.75, 0.75, 0.75]
   antibodies:
     REGN10933_400:  # total of 8 mutants selected
       display_name: REGN10933
