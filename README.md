@@ -1,7 +1,7 @@
 # Mutational antigenic profiling of SARS-CoV-2 RBD against REGN-COV2 and LY-CoV016
 Analysis of mutational antigenic profiling of barcoded codon variants of SARS-CoV-2 RBD against the antibodies in REGN-COV2 and LY-CoV016.
 
-Study and analysis by Tyler Starr, Allie Greaney, [Jesse Bloom](https://research.fhcrc.org/bloom/en.html), and co-authors.
+Study and analysis by Tyler Starr, Allie Greaney, [Jesse Bloom](https://research.fhcrc.org/bloom/en.html), and co-authors. Details in the pre-print [here](https://twitter.com/jbloom_lab/status/1333897221561978880?s=20).
 
 ## Summary of workflow and results
 For a summary of the workflow and links to key results files, [click here](results/summary/summary.md).
