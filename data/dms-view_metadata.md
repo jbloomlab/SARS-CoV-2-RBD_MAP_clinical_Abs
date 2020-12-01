@@ -1,6 +1,6 @@
 ## Prospective mapping of viral mutations that escape antibodies used to treat COVID-19
 
-For experimental background, see our paper **here (add link)**.
+For experimental background, see our paper **[here](https://www.biorxiv.org/content/10.1101/2020.11.30.405472v1)**.
 
 ### What data are shown here?
 We are showing mutations to the SARS-CoV-2 RBD that escape antibody binding as measured using mutational antigenic profiling. Raw data is available [here](https://github.com/jbloomlab/SARS-CoV-2-RBD_MAP_clinical_Abs/blob/main/results/supp_data/REGN_and_LY-CoV016_raw_data.csv).
