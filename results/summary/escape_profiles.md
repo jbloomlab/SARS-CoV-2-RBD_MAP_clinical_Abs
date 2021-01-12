@@ -44,7 +44,7 @@ print(f"Using `dmslogo` version {dmslogo.__version__}")
 print(f"Using `dms_variants` version {dms_variants.__version__}")
 ```
 
-    Using `dmslogo` version 0.5.0
+    Using `dmslogo` version 0.6.1
     Using `dms_variants` version 0.8.5
 
 

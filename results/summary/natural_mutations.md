@@ -278,49 +278,49 @@ display(HTML(sitecounts_strong_sites.head(n=20).to_html(index=False)))
   </thead>
   <tbody>
     <tr>
-      <td>REGN10987_400</td>
-      <td>default</td>
-      <td>439</td>
-      <td>N</td>
-      <td>2.2040</td>
-      <td>2242</td>
-      <td>N439K (2242)</td>
-    </tr>
-    <tr>
-      <td>REGN10987_400</td>
-      <td>sensitive</td>
-      <td>439</td>
-      <td>N</td>
-      <td>2.2040</td>
-      <td>2242</td>
-      <td>N439K (2242)</td>
-    </tr>
-    <tr>
-      <td>REGN10933_400</td>
-      <td>sensitive</td>
-      <td>453</td>
-      <td>Y</td>
-      <td>4.0980</td>
-      <td>330</td>
-      <td>Y453F (330)</td>
-    </tr>
-    <tr>
-      <td>REGN10933_400</td>
-      <td>default</td>
-      <td>453</td>
-      <td>Y</td>
-      <td>4.0980</td>
-      <td>330</td>
-      <td>Y453F (330)</td>
-    </tr>
-    <tr>
       <td>CB6_400</td>
       <td>sensitive</td>
       <td>501</td>
       <td>N</td>
       <td>1.4950</td>
-      <td>225</td>
-      <td>N501Y (210), N501T (10), N501S (5)</td>
+      <td>11434</td>
+      <td>N501Y (11216), N501T (209), N501S (6), N501I (3)</td>
+    </tr>
+    <tr>
+      <td>REGN10987_400</td>
+      <td>sensitive</td>
+      <td>439</td>
+      <td>N</td>
+      <td>2.2040</td>
+      <td>5262</td>
+      <td>N439K (5262)</td>
+    </tr>
+    <tr>
+      <td>REGN10987_400</td>
+      <td>default</td>
+      <td>439</td>
+      <td>N</td>
+      <td>2.2040</td>
+      <td>5262</td>
+      <td>N439K (5262)</td>
+    </tr>
+    <tr>
+      <td>REGN10933_400</td>
+      <td>default</td>
+      <td>453</td>
+      <td>Y</td>
+      <td>4.0980</td>
+      <td>994</td>
+      <td>Y453F (994)</td>
+    </tr>
+    <tr>
+      <td>REGN10933_400</td>
+      <td>sensitive</td>
+      <td>453</td>
+      <td>Y</td>
+      <td>4.0980</td>
+      <td>994</td>
+      <td>Y453F (994)</td>
     </tr>
     <tr>
       <td>REGN10933_400</td>
@@ -328,8 +328,8 @@ display(HTML(sitecounts_strong_sites.head(n=20).to_html(index=False)))
       <td>484</td>
       <td>E</td>
       <td>3.0380</td>
-      <td>66</td>
-      <td>E484Q (29), E484K (27), E484A (6), E484D (3), E484R (1)</td>
+      <td>615</td>
+      <td>E484K (536), E484Q (54), E484A (8), E484G (7), E484D (6), E484R (3), E484V (1)</td>
     </tr>
     <tr>
       <td>REGN10933_400</td>
@@ -337,8 +337,8 @@ display(HTML(sitecounts_strong_sites.head(n=20).to_html(index=False)))
       <td>484</td>
       <td>E</td>
       <td>3.0380</td>
-      <td>66</td>
-      <td>E484Q (29), E484K (27), E484A (6), E484D (3), E484R (1)</td>
+      <td>615</td>
+      <td>E484K (536), E484Q (54), E484A (8), E484G (7), E484D (6), E484R (3), E484V (1)</td>
     </tr>
     <tr>
       <td>CB6_400</td>
@@ -346,17 +346,80 @@ display(HTML(sitecounts_strong_sites.head(n=20).to_html(index=False)))
       <td>484</td>
       <td>E</td>
       <td>0.9369</td>
-      <td>66</td>
-      <td>E484Q (29), E484K (27), E484A (6), E484D (3), E484R (1)</td>
+      <td>615</td>
+      <td>E484K (536), E484Q (54), E484A (8), E484G (7), E484D (6), E484R (3), E484V (1)</td>
     </tr>
     <tr>
-      <td>REGN10987_400</td>
+      <td>CB6_400</td>
       <td>sensitive</td>
-      <td>446</td>
-      <td>G</td>
-      <td>17.1200</td>
-      <td>38</td>
-      <td>G446V (29), G446S (7), G446A (2)</td>
+      <td>417</td>
+      <td>K</td>
+      <td>17.8300</td>
+      <td>349</td>
+      <td>K417N (347), K417R (2)</td>
+    </tr>
+    <tr>
+      <td>REGN10933_400</td>
+      <td>default</td>
+      <td>417</td>
+      <td>K</td>
+      <td>4.5550</td>
+      <td>349</td>
+      <td>K417N (347), K417R (2)</td>
+    </tr>
+    <tr>
+      <td>CB6_400</td>
+      <td>default</td>
+      <td>417</td>
+      <td>K</td>
+      <td>17.8300</td>
+      <td>349</td>
+      <td>K417N (347), K417R (2)</td>
+    </tr>
+    <tr>
+      <td>REGN10933_400</td>
+      <td>sensitive</td>
+      <td>417</td>
+      <td>K</td>
+      <td>4.5550</td>
+      <td>349</td>
+      <td>K417N (347), K417R (2)</td>
+    </tr>
+    <tr>
+      <td>CB6_400</td>
+      <td>default</td>
+      <td>475</td>
+      <td>A</td>
+      <td>10.2900</td>
+      <td>110</td>
+      <td>A475S (59), A475V (50), A475T (1)</td>
+    </tr>
+    <tr>
+      <td>CB6_400</td>
+      <td>sensitive</td>
+      <td>475</td>
+      <td>A</td>
+      <td>10.2900</td>
+      <td>110</td>
+      <td>A475S (59), A475V (50), A475T (1)</td>
+    </tr>
+    <tr>
+      <td>REGN10933_400</td>
+      <td>default</td>
+      <td>475</td>
+      <td>A</td>
+      <td>1.8420</td>
+      <td>110</td>
+      <td>A475S (59), A475V (50), A475T (1)</td>
+    </tr>
+    <tr>
+      <td>REGN10933_400</td>
+      <td>sensitive</td>
+      <td>475</td>
+      <td>A</td>
+      <td>1.8420</td>
+      <td>110</td>
+      <td>A475S (59), A475V (50), A475T (1)</td>
     </tr>
     <tr>
       <td>REGN10933+REGN10987_400</td>
@@ -364,8 +427,8 @@ display(HTML(sitecounts_strong_sites.head(n=20).to_html(index=False)))
       <td>446</td>
       <td>G</td>
       <td>0.1137</td>
-      <td>38</td>
-      <td>G446V (29), G446S (7), G446A (2)</td>
+      <td>101</td>
+      <td>G446V (90), G446S (8), G446A (2), G446D (1)</td>
     </tr>
     <tr>
       <td>REGN10987_400</td>
@@ -373,8 +436,17 @@ display(HTML(sitecounts_strong_sites.head(n=20).to_html(index=False)))
       <td>446</td>
       <td>G</td>
       <td>17.1200</td>
-      <td>38</td>
-      <td>G446V (29), G446S (7), G446A (2)</td>
+      <td>101</td>
+      <td>G446V (90), G446S (8), G446A (2), G446D (1)</td>
+    </tr>
+    <tr>
+      <td>REGN10987_400</td>
+      <td>sensitive</td>
+      <td>446</td>
+      <td>G</td>
+      <td>17.1200</td>
+      <td>101</td>
+      <td>G446V (90), G446S (8), G446A (2), G446D (1)</td>
     </tr>
     <tr>
       <td>REGN10987_400</td>
@@ -382,80 +454,8 @@ display(HTML(sitecounts_strong_sites.head(n=20).to_html(index=False)))
       <td>440</td>
       <td>N</td>
       <td>6.6100</td>
-      <td>35</td>
-      <td>N440K (29), N440Y (3), N440T (1), N440S (1), N440D (1)</td>
-    </tr>
-    <tr>
-      <td>REGN10987_400</td>
-      <td>default</td>
-      <td>440</td>
-      <td>N</td>
-      <td>6.6100</td>
-      <td>35</td>
-      <td>N440K (29), N440Y (3), N440T (1), N440S (1), N440D (1)</td>
-    </tr>
-    <tr>
-      <td>CB6_400</td>
-      <td>sensitive</td>
-      <td>485</td>
-      <td>G</td>
-      <td>0.9854</td>
-      <td>34</td>
-      <td>G485R (32), G485S (2)</td>
-    </tr>
-    <tr>
-      <td>REGN10933_400</td>
-      <td>sensitive</td>
-      <td>485</td>
-      <td>G</td>
-      <td>1.2150</td>
-      <td>34</td>
-      <td>G485R (32), G485S (2)</td>
-    </tr>
-    <tr>
-      <td>REGN10933+REGN10987_400</td>
-      <td>sensitive</td>
-      <td>455</td>
-      <td>L</td>
-      <td>0.1846</td>
-      <td>33</td>
-      <td>L455F (33)</td>
-    </tr>
-    <tr>
-      <td>CB6_400</td>
-      <td>default</td>
-      <td>455</td>
-      <td>L</td>
-      <td>4.6230</td>
-      <td>33</td>
-      <td>L455F (33)</td>
-    </tr>
-    <tr>
-      <td>REGN10933_400</td>
-      <td>sensitive</td>
-      <td>455</td>
-      <td>L</td>
-      <td>6.8360</td>
-      <td>33</td>
-      <td>L455F (33)</td>
-    </tr>
-    <tr>
-      <td>REGN10933_400</td>
-      <td>default</td>
-      <td>455</td>
-      <td>L</td>
-      <td>6.8360</td>
-      <td>33</td>
-      <td>L455F (33)</td>
-    </tr>
-    <tr>
-      <td>CB6_400</td>
-      <td>sensitive</td>
-      <td>455</td>
-      <td>L</td>
-      <td>4.6230</td>
-      <td>33</td>
-      <td>L455F (33)</td>
+      <td>70</td>
+      <td>N440K (53), N440Y (11), N440D (3), N440S (2), N440T (1)</td>
     </tr>
   </tbody>
 </table>
@@ -587,84 +587,84 @@ for name, specs in escape_profiles_config.items():
   </thead>
   <tbody>
     <tr>
+      <td>LY-CoV016</td>
+      <td>sensitive</td>
+      <td>501</td>
+      <td>N</td>
+      <td>11434</td>
+      <td>N501Y (11216), N501T (209), N501S (6), N501I (3)</td>
+    </tr>
+    <tr>
       <td>REGN10987</td>
       <td>sensitive</td>
       <td>439</td>
       <td>N</td>
-      <td>2242</td>
-      <td>N439K (2242)</td>
+      <td>5262</td>
+      <td>N439K (5262)</td>
     </tr>
     <tr>
       <td>REGN10933</td>
       <td>sensitive</td>
       <td>453</td>
       <td>Y</td>
-      <td>330</td>
-      <td>Y453F (330)</td>
-    </tr>
-    <tr>
-      <td>LY-CoV016</td>
-      <td>sensitive</td>
-      <td>501</td>
-      <td>N</td>
-      <td>225</td>
-      <td>N501Y (210), N501T (10), N501S (5)</td>
+      <td>994</td>
+      <td>Y453F (994)</td>
     </tr>
     <tr>
       <td>REGN10933</td>
       <td>sensitive</td>
       <td>484</td>
       <td>E</td>
-      <td>66</td>
-      <td>E484Q (29), E484K (27), E484A (6), E484D (3), E484R (1)</td>
+      <td>615</td>
+      <td>E484K (536), E484Q (54), E484A (8), E484G (7), E484D (6), E484R (3), E484V (1)</td>
     </tr>
     <tr>
       <td>LY-CoV016</td>
       <td>sensitive</td>
       <td>484</td>
       <td>E</td>
-      <td>66</td>
-      <td>E484Q (29), E484K (27), E484A (6), E484D (3), E484R (1)</td>
+      <td>615</td>
+      <td>E484K (536), E484Q (54), E484A (8), E484G (7), E484D (6), E484R (3), E484V (1)</td>
     </tr>
     <tr>
-      <td>REGN10987</td>
+      <td>LY-CoV016</td>
       <td>sensitive</td>
-      <td>446</td>
-      <td>G</td>
-      <td>38</td>
-      <td>G446V (29), G446S (7), G446A (2)</td>
+      <td>417</td>
+      <td>K</td>
+      <td>349</td>
+      <td>K417N (347), K417R (2)</td>
+    </tr>
+    <tr>
+      <td>REGN10933</td>
+      <td>sensitive</td>
+      <td>417</td>
+      <td>K</td>
+      <td>349</td>
+      <td>K417N (347), K417R (2)</td>
+    </tr>
+    <tr>
+      <td>LY-CoV016</td>
+      <td>sensitive</td>
+      <td>475</td>
+      <td>A</td>
+      <td>110</td>
+      <td>A475S (59), A475V (50), A475T (1)</td>
+    </tr>
+    <tr>
+      <td>REGN10933</td>
+      <td>sensitive</td>
+      <td>475</td>
+      <td>A</td>
+      <td>110</td>
+      <td>A475S (59), A475V (50), A475T (1)</td>
     </tr>
     <tr>
       <td>REGN10933 + REGN10987</td>
       <td>sensitive</td>
       <td>446</td>
       <td>G</td>
-      <td>38</td>
-      <td>G446V (29), G446S (7), G446A (2)</td>
-    </tr>
-    <tr>
-      <td>REGN10987</td>
-      <td>sensitive</td>
-      <td>440</td>
-      <td>N</td>
-      <td>35</td>
-      <td>N440K (29), N440Y (3), N440T (1), N440S (1), N440D (1)</td>
-    </tr>
-    <tr>
-      <td>LY-CoV016</td>
-      <td>sensitive</td>
-      <td>485</td>
-      <td>G</td>
-      <td>34</td>
-      <td>G485R (32), G485S (2)</td>
-    </tr>
-    <tr>
-      <td>REGN10933</td>
-      <td>sensitive</td>
-      <td>485</td>
-      <td>G</td>
-      <td>34</td>
-      <td>G485R (32), G485S (2)</td>
+      <td>101</td>
+      <td>G446V (90), G446S (8), G446A (2), G446D (1)</td>
     </tr>
   </tbody>
 </table>
