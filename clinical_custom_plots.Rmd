@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = T)
 knitr::opts_chunk$set(dev.args = list(png = list(type = "cairo")))
 
 #list of packages to install/load
-packages = c("yaml","data.table","tidyverse","ggrepel","bio3d")
+packages = c("yaml","data.table","tidyverse","ggrepel","bio3d","gridExtra")
 #install any packages not already installed
 installed_packages <- packages %in% rownames(installed.packages())
 if(any(installed_packages == F)){
@@ -102,7 +102,58 @@ invisible(dev.print(pdf, paste(output_dir,"/circ-mut-scatter_mAbs_REGN-LY.pdf",s
 
 ```
 
-## Part 2: Double mutants in RBD alignment?
+## Part 2: Distribution of functional effects of mutations circulating at different levels
+
+For contextualizing ACE2 and expression deficits of antigenic mutations, what is the distribution of these phenotypes among sequences on GISAID?
+
+```{r GISAID_DFE, echo=T, fig.width=7, fig.height=4, fig.align="center", dpi=300,dev="png"}
+#read in DMS scores
+dms <- data.table(read.csv(file=config$mut_bind_expr,stringsAsFactors = F))
+setnames(dms,"site_SARS2","site")
+dms <- dms[mutant != "*",]
+dms <- dms[as.character(wildtype) != as.character(mutant),]
+
+dms[,count:=0]
+for(i in 1:nrow(counts)){
+  dms[site==counts[i,"site"] & mutant==counts[i,"mutant"],count:=counts[i,"count"]]
+}
+
+#define factor for different nobs cutoffs, and collate into long data table for plotting
+muts_temp <- dms
+muts_temp$nobs_indicator<-factor("all muts",levels=c("all muts",">=1", ">=10",">=25"))
+muts_temp_add0 <- dms[count>=1, ]
+muts_temp_add0$nobs_indicator<-factor(">=1",levels=c("all muts",">=1", ">=10",">=25"))
+muts_temp_add10 <- dms[count>=10, ]
+muts_temp_add10$nobs_indicator<-factor(">=10",levels=c("all muts",">=1", ">=10",">=25"))
+muts_temp_add25 <- dms[count>=25, ]
+muts_temp_add25$nobs_indicator<-factor(">=25",levels=c("all muts",">=1", ">=10",">=25"))
+
+muts_temp <- rbind(muts_temp,muts_temp_add0,muts_temp_add10,muts_temp_add25)
+muts_temp$nobs_indicator <- factor(muts_temp$nobs_indicator, levels=c("all muts",">=1", ">=10",">=25"))
+
+set.seed(198)
+p1 <- ggplot(muts_temp[!is.na(muts_temp$bind_avg),],aes(x=nobs_indicator,y=bind_avg))+
+  geom_boxplot(outlier.shape=16, width=0.4, outlier.alpha=0.5)+
+  #geom_jitter(width=0.2, alpha=0.1, shape=16)+
+  xlab("mutation count in GISAID sequences")+ylab("mutation effect on binding")+
+  theme_classic()+geom_hline(yintercept=-2.35, linetype = 'dotted', col = 'gray50')+
+  geom_hline(yintercept=0,linetype='dashed',col='gray50')
+
+p2 <- ggplot(muts_temp[!is.na(muts_temp$expr_avg),],aes(x=nobs_indicator,y=expr_avg))+
+  geom_boxplot(outlier.shape=16, width=0.4, outlier.alpha=0.5)+
+  #geom_jitter(width=0.2, alpha=0.1, shape=16)+
+  xlab("mutation count in GISAID sequences")+ylab("mutation effect on expression")+
+  theme_classic()+geom_hline(yintercept=-1, linetype = 'dotted', col = 'gray50')+
+  geom_hline(yintercept=0,linetype='dashed',col='gray50')
+
+grid.arrange(p1,p2,ncol=2)
+
+invisible(dev.print(pdf, paste(output_dir,"/distribution-ACE2-expr-dms_v_nobs-GISAID.pdf",sep="")))
+
+```
+
+
+## Part 3: Double mutants in RBD alignment?
 
 Want to know whether any sequences in the alignment of RBD sequences from GISAID have double mutants, and if so, whether any are dual escape from cocktail components.
 
@@ -154,8 +205,7 @@ for(i in 1:nrow(multiples)){
 plot(multiples$max_REGN10933,multiples$max_REGN10987,pch=16,xlab="max escape from REGN10933",ylab="max escape from REGN10987",col="#00000067")
 
 ```
-
-## Part 3: escape within or without the structural epitope
+## Part 4: escape within or without the structural epitope
 
 We want to try a few plots -- at the per-mut and per-site level, compare distribution of escape scores between structural contacts and non-contacts. We should try the contact/non-contact, but also a "close" category corresponding to 4-8A distance? Means we'll probably want to re-do the structural analysis here within this "custom analyses" script.
 
